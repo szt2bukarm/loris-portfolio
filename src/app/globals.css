@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'IntraNet';
+  src: url('/fonts/IntraNet.otf');
+}
+
+@font-face {
+  font-family: "PPMori-Regular";
+  src: url('/fonts/PPMori-Regular.otf');
+}
+
+@font-face {
+  font-family: "PPMori-SemiBold";
+  src: url('/fonts/PPMori-SemiBold.otf');
+}
+
+.splitline {
+  overflow: hidden;
+}
+
+body {
+  background: #000;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+::selection {
+  background: white;
+  color: black;
+}
+
+::view-transition-old(root) {
+  z-index: 9999;
+  animation: 0.4s ease-in-out fade-out both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+  animation: 0.4s ease-in-out fade-in both;
+  animation-delay: 0.4s;
+  mix-blend-mode: normal;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
