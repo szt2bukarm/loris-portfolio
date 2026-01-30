@@ -25,7 +25,7 @@ export default function WorksGridItem({
     const { isMobile } = useStore();
 
     return (
-        <div onClick={() => onSelect(slug)} data-gsap="grid-item" className="group relative h-[80vw] md:h-[35vw] lg:h-[24vw] 2xl:h-[19vw] w-auto rounded-[10px] flex flex-col justify-between p-[15px] cursor-pointer opacity-0" style={{ background: `url(${thumbnail})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+        <div onClick={() => onSelect(slug)} data-gsap="grid-item" className="overflow-hidden group relative h-[80vw] md:h-[35vw] lg:h-[24vw] 2xl:h-[19vw] w-auto rounded-[10px] flex flex-col justify-between p-[15px] cursor-pointer opacity-0" style={{ background: `url(${thumbnail})`, backgroundSize: "cover", backgroundPosition: "center" }}>
 
             <div className={`z-0 absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black via-transparent to-black transition-all duration-150 ${isMobile ? "opacity-50" : "group-hover:opacity-35 opacity-0"}`}></div>
 

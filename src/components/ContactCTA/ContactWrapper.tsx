@@ -33,9 +33,15 @@ export default function ContactWrapper() {
     }, [openContact]);
 
     const closeContact = () => {
+        gsap.to("[data-gsap='contact-form-wrapper']", {
+            y: "100%",
+            duration: 0.3,
+            ease: "power2.inOut",
+        })
         gsap.to("[data-gsap='contact-wrapper']", {
             opacity: 0,
-            duration: 0.15,
+            duration: 0.3,
+            delay: 0.15,
             ease: "linear",
             onComplete: () => setOpenContact(false)
         })
@@ -54,7 +60,7 @@ export default function ContactWrapper() {
                         <ContactForm onClose={closeContact} />
                     </div>
                 </div>
-            <ContactHandsake onClick={closeContact}/>
+                <ContactHandsake onClick={closeContact} />
             </ReactLenis>
         </div>
     )

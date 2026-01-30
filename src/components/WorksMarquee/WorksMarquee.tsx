@@ -87,7 +87,7 @@ export default function WorksMarquee() {
     }, { scope: marqueeRef });
 
     return (
-        <div className="relative h-full w-full md:-mt-[50px] z-[50] overflow-hidden group">
+        <div className="relative h-full w-full mt-[50px] lg:-mt-[50px] z-[50] overflow-hidden group">
             <Link
                 href="/works"
                 className="block w-full h-full"
@@ -99,7 +99,7 @@ export default function WorksMarquee() {
                     <div className="text-md md:text-lg text-brightgray font-ppsemibold hover:opacity-50 duration-150 transition-opacity">Go to Works</div>
                 </div>
 
-                <div className="relative h-full w-full pt-[20px]"
+                <div className="relative h-full w-full md:pt-[20px]"
                     style={{
                         WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%,black 90%, transparent)',
                         maskImage: 'linear-gradient(to right, transparent, black 10%,black 90%, transparent)',

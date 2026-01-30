@@ -24,6 +24,6 @@ export const useStore = create<Store>((set) => ({
     shouldShuffle: false,
     setShouldShuffle: (shouldShuffle) => set({ shouldShuffle }),
 
-    loaded: true,
+    loaded: false,
     setLoaded: (loaded) => set({ loaded }),
 }))

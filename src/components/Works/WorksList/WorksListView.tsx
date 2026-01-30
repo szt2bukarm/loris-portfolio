@@ -81,7 +81,7 @@ export default function WorksListView({ hasPlayed, setHasPlayed, onSelect, pause
                 xPercent: 20,
                 duration: 2.5,
                 ease: "power4.out",
-                delay: 1.35,
+                delay: 2.5,
                 onComplete: () => {
                     setHasPlayed(true);
                 }

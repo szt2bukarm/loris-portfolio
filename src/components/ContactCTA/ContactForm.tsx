@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { useStore } from "../../app/useStore";
 import { useLenis } from "@studio-freight/react-lenis"
 
-export default function ContactForm({onClose}: {onClose: () => void}) {
+export default function ContactForm({ onClose }: { onClose: () => void }) {
     const { isMobile } = useStore();
     const [formData, setFormData] = useState({
         name: "",
@@ -58,7 +58,7 @@ export default function ContactForm({onClose}: {onClose: () => void}) {
                         gsap.to("[data-gsap='contact-handshake']", {
                             opacity: 1,
                             duration: 0.15,
-                            pointerEvents: "auto",  
+                            pointerEvents: "auto",
                             ease: "linear"
                         })
                     }
@@ -119,7 +119,7 @@ export default function ContactForm({onClose}: {onClose: () => void}) {
         })
 
 
-    },[])
+    }, [])
 
 
     return (
@@ -136,19 +136,19 @@ export default function ContactForm({onClose}: {onClose: () => void}) {
                         <div data-gsap='contact-personicon' className="w-[65px] h-[65px] rounded-full p-[2.5px] flex items-center justify-center bg-gradient-to-b from-white to-midgray ">
                             <img src="/assets/loris.webp" className="w-full h-full object-cover rounded-full" />
                         </div>
-                        <div data-gsap='contact-personicon' className="w-[65px] h-[65px] rounded-full -ml-5">
+                        <div data-gsap='contact-personicon' className="w-[65px] h-[65px] rounded-full p-[2.5px] flex items-center justify-center bg-gradient-to-b from-white to-midgray -ml-5">
                             <img src="/assets/client_icon.webp" className="w-full h-full object-cover rounded-full" />
                         </div>
                     </div>
 
                     <div className="w-full h-full overflow-hidden">
-                    <p data-gsap="contact-title" className="text-white font-intranet text-h4 sm:text-h3 mb-[10px] leading-[130%] text-center">LET'S WORK TOGETHER</p>
+                        <p data-gsap="contact-title" className="text-white font-intranet text-h4 sm:text-h3 mb-[10px] leading-[130%] text-center">LET'S WORK TOGETHER</p>
                     </div>
                     <p data-gsap="contact-subtitle" className="text-white/50 font-ppregular text-sm w-[70%] text-center sm:w-full">Tell me a bit about your project, timeline, and rough budget below...</p>
                 </div>
 
-                <form data-gsap="contact-form" onSubmit={handleSubmit} className="w-[calc(100%-10px)] sm:w-[calc(100%-40px)] z-10 flex flex-col items-center">
-                    <div className="w-full h-[430px] md:[@media(min-height:0px)]:h-[40vh] md:[@media(min-height:1150px)]:h-[52vh] md:[@media(min-height:1500px)]:h-[60vh] md:[@media(min-height:1900px)]:h-[65vh] bg-[#060606] border border-[#232323] rounded-[27px] p-[15px] flex flex-col mb-[20px]">
+                <form data-gsap="contact-form" onSubmit={handleSubmit} className="w-[calc(100%-10px)] sm:w-[calc(100%-40px)] z-10 flex flex-col items-center flex-1">
+                    <div className="w-full h-[430px] md:h-[60%] bg-[#060606] border border-[#232323] rounded-[27px] p-[15px] flex flex-col mb-[20px]">
 
                         {/* top inputs */}
                         <div className="flex gap-[8px] mb-[8px] flex-col md:flex-row">

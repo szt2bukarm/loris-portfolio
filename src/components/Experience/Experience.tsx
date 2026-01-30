@@ -145,7 +145,7 @@ const ExperienceMedium = () => {
     })
 
     return (
-        <section className="lg:hidden relative w-full px-[20px] py-[140px] flex flex-col gap-[45px] md:gap-[90px]">
+        <section className="lg:hidden relative w-full px-[10px] sm:px-[20px] py-[90px] md:py-[150px] flex flex-col gap-[45px] md:gap-[90px]">
             {data.map((entry, i) => (
                 <div
                     key={i}
@@ -155,7 +155,7 @@ const ExperienceMedium = () => {
                     <div className="md:w-[50%]">
                         <p
                             data-gsap={`experience-title-${i}-medium`}
-                            className="font-intranet text-h3 text-brightgray"
+                            className="font-intranet text-h3 text-midgray md:text-brightgray"
                         >
                             {entry.title}
                         </p>

@@ -3,7 +3,8 @@ const projects = [
         title: "AUGHTS.SPECTIVE",
         slug: "aughtsspective",
         behance: "https://www.behance.net/gallery/185546971/AUGHTSSPECTIVE-MAGAZINE-DESIGN",
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: null,
+        description: "AUGHTS.SPECTIVE is a contemporary retrospective dedicated to the diverse cultural landscape of the early 2000s.<br><br>I curated and designed this 36-page periodical from cover to cover, creating a visual language that explores the intersection of Y2K technology and pop culture.",
         category: [
             {
                 icon: "/icons/uiux.svg",
@@ -37,7 +38,8 @@ const projects = [
         title: "DAYDREAM PLAYER",
         slug: "daydreamplayer",
         behance: "https://www.behance.net/gallery/185546971/AUGHTSSPECTIVE-MAGAZINE-DESIGN",
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: null,
+        description: "Merging early 2000s charm with contemporary streaming technology, Daydream Player is a modern tactile music device.<br><br>As a solo project, I executed the entire design process from start to finish: defining the brand identity, engineering the physical product concept, and crafting the UI/UX and packaging.",
         category: [
             {
                 icon: "/icons/product.svg",
@@ -91,7 +93,8 @@ const projects = [
         title: "Loben Variable",
         slug: "loben",
         behance: "https://www.behance.net/gallery/202124199/Loben-Variable-Font-Free-for-Personal",
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: null,
+        description: "Loben Variable is simple a multilingual font with a distinctive look. It's variable on three axis: weight, slant and squarify.<br><br>The latter adjusts the corner radius, giving you the option to make it completely yours..",
         category: [
             {
                 icon: "/icons/graphics.svg",
@@ -125,7 +128,8 @@ const projects = [
         title: "Orith Display",
         slug: "orith",
         behance: "https://www.behance.net/gallery/183804073/ORITH-DISPLAY-Free-Display-Font",
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: null,
+        description: "Orith channels the spirit of 2000's racing games. Its slightly slanted, sharp-edged design evokes high-speed and edgy feel.The modernity of that era makes this font well suitable for many aesthetics, let it be old-school or futuristic.",
         category: [
             {
                 icon: "/icons/graphics.svg",
@@ -159,7 +163,8 @@ const projects = [
         title: "Daily UI Challange",
         slug: "daily-ui-challange",
         behance: "https://www.behance.net/gallery/193506665/DAILY-UI-CHALLENGE",
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: null,
+        description: "I undertook the 25-Day UI Challenge to sharpen my rapid prototyping skills. <br><br>For 25 consecutive days, I designed a unique mobile screen based on a daily keyword prompt, exploring a wide range of visual styles and interface patterns.",
         category: [
             {
                 icon: "/icons/uiux.svg",
@@ -197,7 +202,8 @@ const projects = [
         title: "Amca Careers",
         slug: "amca-careers",
         behance: null,
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: "https://careers.amca.com",
+        description: "We designed a memorable job application experience for Amca that goes beyond standard recruitment. The website contextualizes the company's aerospace vision through an interactive timeline, illustrating how the passenger experience has deteriorated over the last 50 years.",
         category: [
             {
                 icon: "/icons/web.svg",
@@ -208,7 +214,7 @@ const projects = [
                 category: "3D"
             }
         ],
-        authors: ["/assets/loris.webp"],
+        authors: ["/assets/loris.webp", "/assets/armin.webp"],
         gridThumbnail: "/assets/project_images/amca/thumb.webp",
         projectImages: ["/assets/project_images/amca/1.webp", "/assets/project_images/amca/2.webp", "/assets/project_images/amca/3.webp", "/assets/project_images/amca/4.webp"],
         bannerType: "image",
@@ -231,7 +237,8 @@ const projects = [
         title: "Wayer",
         slug: "wayer",
         behance: "https://www.behance.net/gallery/198365497/Wayer-Transportation-App-UIUX",
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: null,
+        description: "Wayer transforms the ordinary train ticket app into a social tool that brings friends together. I designed Wayer based on deep user research. It prioritizes ease of use and connectivity, delivering a fast, intuitive experience that eliminates common travel inconveniences.",
         category: [
             {
                 icon: "/icons/uiux.svg",
@@ -277,7 +284,8 @@ const projects = [
         title: "Daydreamplayer.com",
         slug: "daydreamplayer-web",
         behance: "https://www.behance.net/gallery/231231683/DAYDREAM-PLAYER",
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: "https://daydreamplayer.com",
+        description: "To accompany my solo industrial design project, Daydream Player Model 1, We designed and developed a dedicated immersive showcase site, daydreamplayer.com.<br><br>The platform received international recognition for its digital execution, winning Site of the Day on Awwwards (July 25, 2025) and being featured as a Muzli Pick.",
         category: [
             {
                 icon: "/icons/web.svg",
@@ -316,10 +324,11 @@ const projects = [
         freestyleImageCount: 3
     },
     {
-        title: "pneumacosmic.hu",
+        title: "Pneumacosmic.hu",
         slug: "pneumacosmic-web",
         behance: null,
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: "https://pneumacosmic.hu",
+        description: "For the Hungarian Pavilion at the 2026 Venice Biennale, we created the official online platform for Pneuma Cosmic. <br><br>This digital experience translates Endre Koronczi’s physical exhibition into the web environment, allowing visitors to explore the project’s depth regardless of their location.",
         category: [
             {
                 icon: "/icons/web.svg",
@@ -350,10 +359,11 @@ const projects = [
         freestyleImageCount: 3
     },
     {
-        title: "posterfolio",
+        title: "Posterfolio",
         slug: "posterfolio",
         behance: "https://www.behance.net/gallery/205035777/POSTERFOLIO-20-24",
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: null,
+        description: "A collection of experimental posters designed over a four-year period (2020-2024). Inspired by everyday events and personal interests, this self project represents a continuous refinement of my visual language and graphic techniques.",
         category: [
             {
                 icon: "/icons/graphics.svg",
@@ -362,7 +372,7 @@ const projects = [
         ],
         authors: ["/assets/loris.webp"],
         gridThumbnail: "/assets/project_images/posterfolio/thumb.webp",
-        projectImages: ["/assets/project_images/posterfolio/1.webp", "/assets/project_images/posterfolio/2.webp", "/assets/project_images/posterfolio/3.webp", "/assets/project_images/posterfolio/4.webp", "/assets/project_images/posterfolio/5.webp", "/assets/project_images/posterfolio/6.webp", "/assets/project_images/posterfolio/7.webp", "/assets/project_images/posterfolio/8.webp", "/assets/project_images/posterfolio/9.webp", "/assets/project_images/posterfolio/10.webp", "/assets/project_images/posterfolio/11.webp"],
+        projectImages: ["/assets/project_images/posterfolio/1.webp", "/assets/project_images/posterfolio/2.webp", "/assets/project_images/posterfolio/3.webp", "/assets/project_images/posterfolio/4.webp", "/assets/project_images/posterfolio/5.webp", "/assets/project_images/posterfolio/6.webp", "/assets/project_images/posterfolio/7.webp", "/assets/project_images/posterfolio/8.webp", "/assets/project_images/posterfolio/9.webp", "/assets/project_images/posterfolio/10.webp", "/assets/project_images/posterfolio/11.webp", "/assets/project_images/posterfolio/12.webp",],
         bannerType: "image",
         banner: "/assets/project_images/posterfolio/banner.webp",
         projectImagesStructure: [
@@ -370,7 +380,7 @@ const projects = [
             {
                 grid: 3,
                 mobileGrid: 1,
-                images: ["/assets/project_images/posterfolio/1.webp", "/assets/project_images/posterfolio/2.webp", "/assets/project_images/posterfolio/3.webp", "/assets/project_images/posterfolio/4.webp", "/assets/project_images/posterfolio/5.webp", "/assets/project_images/posterfolio/6.webp", "/assets/project_images/posterfolio/7.webp", "/assets/project_images/posterfolio/8.webp", "/assets/project_images/posterfolio/9.webp", "/assets/project_images/posterfolio/10.webp", "/assets/project_images/posterfolio/11.webp"],
+                images: ["/assets/project_images/posterfolio/1.webp", "/assets/project_images/posterfolio/2.webp", "/assets/project_images/posterfolio/3.webp", "/assets/project_images/posterfolio/4.webp", "/assets/project_images/posterfolio/5.webp", "/assets/project_images/posterfolio/6.webp", "/assets/project_images/posterfolio/7.webp", "/assets/project_images/posterfolio/8.webp", "/assets/project_images/posterfolio/9.webp", "/assets/project_images/posterfolio/10.webp", "/assets/project_images/posterfolio/11.webp", "/assets/project_images/posterfolio/12.webp",],
                 round: 10
             }
         ],
@@ -383,7 +393,7 @@ const projects = [
         title: "ikOn.hu",
         slug: "ikon-web",
         behance: null,
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        description: "Founded by Endre Koronczi in 2000, ikOn was created to solve a critical logistical problem: exhibition openings were frequently clashing, splitting the audience. The platform provided a shared calendar to prevent these conflicts.<br><br>For its 25th anniversary, I was commissioned to bring this essential tool into the modern era. I executed a complete digital overhaul, streamlining decades of legacy features into a cohesive system. Key deliverables included a revamped admin panel for organizers and a new companion app featuring a live map for visitors.",
         category: [
             {
                 icon: "/icons/web.svg",
@@ -441,7 +451,8 @@ const projects = [
         title: "36 Days of Type",
         slug: "36-days-of-type",
         behance: "https://www.behance.net/gallery/191502531/36-DAYS-OF-TYPE-2024",
-        description: "The Daydream Player concept revives the charm and nostalgia of early 2000s tech in a modern streaming based tactile music player.",
+        website: null,
+        description: "A 36-day typographic marathon. As part of the global 36 Days of Type challenge, I designed a complete custom set of letters and numbers, experimenting with form and texture.",
         category: [
             {
                 icon: "/icons/graphics.svg",

@@ -12,37 +12,42 @@ const data = [
         icon: "/icons/awwwards.svg",
         text: "Site of The Day  |  DAYDREAM PLAYER",
         from: "Awwwards",
-        image: "/assets/project_images/awards/daydream.webp"
+        image: "/assets/project_images/awards/daydream.webp",
+        link: "https://www.awwwards.com/sites/daydream-player/"
     },
     {
         icon: "/icons/muzli.svg",
         text: "Featured on Muzli Picks  |  DAYDREAM PLAYER",
         from: "Muzli",
-        image: "/assets/project_images/awards/muzlihonor.webp"
+        image: "/assets/project_images/awards/muzlihonor.webp",
+        link: "https://muz.li/picked/daydream/"
     },
     {
         icon: "/icons/product_design.svg",
         text: "Featured in Product Design",
         from: "Behance",
-        image: "/assets/project_images/awards/pd.webp"
+        image: "/assets/project_images/awards/pd.webp",
+        link: "https://www.behance.net/gallery/191232761/LUMI-DST-02/"
     },
     {
         icon: "/icons/3d_art.svg",
         text: "Featured in 3D Art",
         from: "Behance",
-        image: "/assets/project_images/awards/3d.webp"
+        image: "/assets/project_images/awards/3d.webp",
+        link: "https://www.behance.net/gallery/191502531/36-DAYS-OF-TYPE-2024/"
     },
     {
         icon: "/icons/ps_category.svg",
         text: "Featured in Photoshop Category",
         from: "Behance",
-        image: "/assets/project_images/awards/3d.webp"
+        image: "/assets/project_images/awards/3d.webp",
+        link: "https://www.behance.net/gallery/191502531/36-DAYS-OF-TYPE-2024/"
     },
 ]
 
-const AwardRow = ({ icon, text, from, onMouseEnter }: { icon: string; text: string; from: string; onMouseEnter: () => void }) => {
+const AwardRow = ({ icon, text, from, link, onMouseEnter }: { icon: string; text: string; from: string; link: string; onMouseEnter: () => void }) => {
     return (
-        <div className="hidden sm:flex items-center w-full opacity-50 hover:opacity-100 duration-150 transition-opacity" onMouseEnter={onMouseEnter}>
+        <div className="hidden sm:flex items-center w-full opacity-50 hover:opacity-100 duration-150 transition-opacity cursor-pointer" onClick={() => window.open(link, "_blank", "noopener noreferrer")} onMouseEnter={onMouseEnter}>
             <div className="min-w-[70px] h-full">
                 <img data-gsap="award-icon" src={icon} className="h-full" alt={`${from} logo`} />
             </div>
@@ -52,9 +57,9 @@ const AwardRow = ({ icon, text, from, onMouseEnter }: { icon: string; text: stri
     )
 }
 
-const AwardRowMobile = ({ icon, text, from }: { icon: string; text: string; from: string }) => {
+const AwardRowMobile = ({ icon, text, from, link }: { icon: string; text: string; from: string; link: string }) => {
     return (
-        <div className="flex sm:hidden items-start w-full">
+        <div className="active:opacity-50 opacity-100 hover:opacity-50 duration-150 transition-opacity cursor-pointer flex sm:hidden items-start w-full" onClick={() => window.open(link, "_blank", "noopener noreferrer")}>
             <div className="min-w-[55px] h-full">
                 <img data-gsap="award-icon-mobile" src={icon} className="h-full translate-y-[5px]" alt={`${from} logo`} />
             </div>
@@ -357,18 +362,18 @@ export default function Awards() {
 
 
     return (
-        <section ref={containerRef} className="px-[10px] md:px-[20px] lg:px-[50px] py-[90px] xl:py-[170px]">
+        <section ref={containerRef} className="px-[10px] sm:px-[20px] pt-[90px] lg:px-[50px]  xl:py-[170px]">
             <p className="text-h3 text-midgray font-intranet opacity-80 mb-[50px] leading-[130%]">awards and<br></br>recognitions</p>
 
             <div className="relative flex flex-col gap-[20px]" style={{ perspective: "1000px" }} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
                 {/* Rows */}
                 {data.map((entry, i) => (
-                    <AwardRow key={i} onMouseEnter={() => handleHover(i)} icon={entry.icon} text={entry.text} from={entry.from} />
+                    <AwardRow key={i} onMouseEnter={() => handleHover(i)} icon={entry.icon} text={entry.text} from={entry.from} link={entry.link} />
                 ))}
 
                 {/* Mobile Rows */}
                 {data.map((entry, i) => (
-                    <AwardRowMobile key={`mobile-${i}`} icon={entry.icon} text={entry.text} from={entry.from} />
+                    <AwardRowMobile key={`mobile-${i}`} icon={entry.icon} text={entry.text} from={entry.from} link={entry.link} />
                 ))}
 
                 {/* Stacking Image Container */}

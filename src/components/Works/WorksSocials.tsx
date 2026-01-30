@@ -76,6 +76,7 @@ export function WorksSocials({ progressValue, behance, className, onBack }: { pr
 
   return (
     <div
+      data-gsap="works-socials"
       className={`fixed bottom-2 left-1/2 -translate-x-1/2 z-[10] ${progressValue == 100 ? "pointer-events-auto" : "pointer-events-none"}`}
       onClick={(e) => e.stopPropagation()}
       ref={setContainerRef}

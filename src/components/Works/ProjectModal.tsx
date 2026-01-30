@@ -88,43 +88,73 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
         if (isOpen) {
             const isDesktop = window.innerWidth >= 1024;
             const targetWidth = isDesktop ? "75vw" : "100vw";
-
+            gsap.set("[data-gsap='close-btn']", { opacity: 0 })
             gsap.set(modalRef.current, { opacity: 0 })
-            gsap.set(contentRef.current, { width: "0vw", opacity: 1, x: 0 })
+            gsap.set(contentRef.current, { width: "0vw", opacity: 0, x: 0 })
             gsap.to(modalRef.current, {
                 opacity: 1,
-                duration: 0.15,
+                duration: 0.1,
                 ease: "linear",
             })
-            gsap.to(contentRef.current, {
+            gsap.fromTo(contentRef.current, { width: "0vw" }, {
                 width: targetWidth,
-                opacity: 1,
                 duration: isDesktop ? 0.8 : 0.5,
                 x: 0,
                 ease: "genyo",
+                delay: 0.1,
+                onComplete: () => {
+                    gsap.to("[data-gsap='close-btn'], [data-gsap='works-socials']", {
+                        opacity: 1,
+                        duration: 0.5,
+                        ease: "power4.out",
+                    })
+                },
+                onStart: () => {
+                    gsap.set(contentRef.current, { opacity: 1 })
+                }
             })
         } else {
+            gsap.killTweensOf([modalRef.current, contentRef.current, "[data-gsap='close-btn']"]);
+
+            ScrollTrigger.getAll().forEach(st => {
+                if (st.vars.scroller === "[data-gsap='works-modal-scroll']") {
+                    st.kill();
+                }
+            });
+            gsap.to("[data-gsap='close-btn'], [data-gsap='works-socials']", {
+                opacity: 0,
+                duration: 0.3,
+                ease: "power4.out",
+            })
             gsap.to(modalRef.current, {
                 opacity: 0,
                 duration: 0.15,
+                delay: 0.5,
                 ease: "linear",
                 onComplete: () => {
                     onAnimationComplete();
-                    setIsLayoutReady(false); // Reset on close
+                    setIsLayoutReady(false);
                     loadedImagesCount.current = 0;
                 }
             })
             gsap.to(contentRef.current, {
-                opacity: 0,
                 width: "0vw",
-                duration: 2,
-                ease: "genyo",
+                duration: 0.3,
+                ease: "power2.in",
             })
         }
-
-        return () => {
-        };
     }, [isOpen]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape" && isOpen) {
+                onClose();
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [isOpen, onClose]);
 
     const progressTriggerRef = useRef<ScrollTrigger | null>(null);
 
@@ -158,12 +188,15 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
     }, [isLayoutReady]);
 
     useLayoutEffect(() => {
-        if (!imagesRef.current) return;
-        setTimeout(() => {
+        if (!isOpen || !isLayoutReady || !imagesRef.current) return;
+
+        const triggers: ScrollTrigger[] = [];
+        const timeout = setTimeout(() => {
             requestAnimationFrame(() => {
                 imagesRef.current.forEach((image) => {
-                    gsap.set(image, { opacity: 0 })
-                    ScrollTrigger.create({
+                    if (!image) return;
+                    gsap.set(image, { opacity: 0 });
+                    const st = ScrollTrigger.create({
                         trigger: image,
                         scroller: "[data-gsap='works-modal-scroll']",
                         start: "top+=200 bottom",
@@ -173,24 +206,85 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
                                 opacity: 1,
                                 duration: 0.5,
                                 ease: "power4.out",
-                            })
+                            });
                         },
-                    }
-                    )
-                })
-            })
+                    });
+                    triggers.push(st);
+                });
+            });
         }, 100);
-    }, [isOpen, imagesRef])
+
+        return () => {
+            clearTimeout(timeout);
+            triggers.forEach(st => st.kill());
+        };
+    }, [isOpen, isLayoutReady, imagesRef]);
+
+    const descriptionRef = useRef<HTMLParagraphElement>(null);
 
     useGSAP(() => {
-        const descSplit = new SplitText("[data-gsap='project-description']", { type: "lines" });
-        descSplit.lines.forEach((line) => {
-            const wrapper = document.createElement("div");
-            wrapper.className = "overflow-hidden";
-            line.parentNode?.insertBefore(wrapper, line);
-            wrapper.appendChild(line);
-        })
+        if (!isLayoutReady) return;
 
+        let split: SplitText;
+        let animationFrame: number;
+
+        if (descriptionRef.current && project && !descriptionRef.current.innerHTML) {
+            descriptionRef.current.innerHTML = project.description;
+        }
+
+        const runSplit = () => {
+            if (!descriptionRef.current) return;
+
+            if (split) split.revert();
+
+            split = new SplitText(descriptionRef.current, { type: "lines" });
+
+            // Wrap lines for overflow hidden reveal effect
+            split.lines.forEach((line) => {
+                const wrapper = document.createElement("div");
+                wrapper.className = "overflow-hidden";
+                line.parentNode?.insertBefore(wrapper, line);
+                wrapper.appendChild(line);
+            });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: descriptionRef.current,
+                    scroller: "[data-gsap='works-modal-scroll']",
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            tl.from(split.lines, {
+                yPercent: 150,
+                duration: 1.2,
+                ease: "out",
+                stagger: 0.05,
+                onComplete: () => {
+                    if (project?.website) {
+                        gsap.to("[data-gsap='project-website']", {
+                            opacity: 1,
+                            duration: 0.5,
+                            ease: "power4.out",
+                        })
+                    }
+                }
+            });
+        };
+
+        // Schedule the split to run in the next animation frame to allow layout settling
+        animationFrame = requestAnimationFrame(runSplit);
+
+        return () => {
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+            if (split) split.revert();
+            // Note: GSAP context automatically kills timelines/triggers created inside
+        };
+
+    }, [isLayoutReady, project, windowWidth]);
+
+    useGSAP(() => {
         gsap.from("[data-gsap='project-title']", {
             y: 80,
             duration: 0.7,
@@ -203,13 +297,6 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
             stagger: 0.1,
             delay: 0.3,
             ease: "power4.out",
-        })
-
-        gsap.from(descSplit.lines, {
-            y: 130,
-            stagger: 0.1,
-            duration: 1.5,
-            ease: "out",
         })
     }, [])
 
@@ -227,9 +314,9 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
         >
             <div
                 ref={contentRef}
-                className={`relative max-w-[100vw] lg:max-w-[75vw] h-[100dvh] sm:h-[90dvh] lg:h-[98dvh] bg-gradient-to-b sm:rounded-t-[19px] lg:rounded-[19px] sm:from-[#292929] sm:to-[#4D4D4D] sm:p-[1px] sm:mx-[10px] lg:mr-[10px] flex justify-center items-center overflow-visible sm:translate-y-[1px] lg:translate-y-0`}>
+                className={`relative w-[0vw] opacity-0 h-[100dvh] sm:h-[90dvh] lg:h-[98dvh] bg-gradient-to-b sm:rounded-t-[19px] lg:rounded-[19px] sm:from-[#292929] sm:to-[#4D4D4D] sm:p-[1px] sm:mx-[10px] lg:mr-[10px] flex justify-center items-center overflow-visible sm:translate-y-[1px] lg:translate-y-0`}>
 
-                <button onClick={onClose} className="absolute top-[30px] right-[10px] sm:right-[30px] sm:top-[-25px] lg:top-[100px] lg:left-[-25px] w-[50px] h-[50px] rounded-full bg-white/[0.1] backdrop-blur-[10px] border border-[#494949] z-10 flex items-center justify-center hover:brightness-200 transition-[filter] duration-300 cursor-pointer">
+                <button data-gsap="close-btn" onClick={onClose} className="absolute top-[30px] right-[10px] sm:right-[30px] sm:top-[-25px] lg:top-[100px] lg:left-[-25px] w-[50px] h-[50px] rounded-full bg-white/[0.1] backdrop-blur-[10px] border border-[#494949] z-10 flex items-center justify-center hover:brightness-200 transition-[filter] duration-300 cursor-pointer">
                     <img src="/icons/close.svg" alt="close" />
                 </button>
 
@@ -248,7 +335,13 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
                                 <div className="relative w-full h-[330px] md:h-[500px] flex items-end justify-center ">
                                     <div className="z-0 absolute top-0 left-0 w-full h-[300px] md:h-[500px]" style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 0%, black 45%, transparent 85%)' }}>
                                         {project.bannerType == "image" && (
-                                            <img src={project.banner} className="min-w-full h-full object-cover object-[50%_60%] will-change-auto" />
+                                            <img
+                                                src={project.banner}
+                                                className="min-w-full h-full object-cover object-[50%_60%] will-change-auto"
+                                                /* @ts-ignore */
+                                                fetchpriority="high"
+                                                decoding="async"
+                                            />
                                         )}
                                         {project.bannerType == "video" && (
                                             <video ref={videoRef} playsInline muted loop src={project.banner} className="min-w-full h-full object-cover object-[50%_60%]" autoPlay />
@@ -272,9 +365,22 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
                                     </div>
                                 </div>
 
-                                <div className="pt-[70px] pb-[110px] w-full md:w-[500px] mx-auto">
-                                    <p data-gsap="project-description" className="font-ppregular text-white text-md leading-md px-[40px]">{project.description}</p>
+                                <div className="pt-[70px] pb-[110px] w-full sm:w-[501px] mx-auto">
+                                    <p ref={descriptionRef} data-gsap="project-description" className="font-ppregular text-white text-md leading-md px-[30px] sm:px-0"></p>
                                 </div>
+
+                                {project.website && (
+                                    <div data-gsap="project-website" className="opacity-0 mb-[100px] w-full flex justify-center">
+                                        <a href={project.website} target="_blank" rel="noopener noreferrer" className="relative inline-block px-6 py-4 hover:px-8 transition-all duration-150 text-white group -mt-4 [@media(max-height:750px)]:mt-0">
+                                        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FBFBFB80] rounded-tl-[14px]"></div>
+                                        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#FBFBFB80] rounded-tr-[14px]"></div>
+                                        <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#FBFBFB80] rounded-bl-[14px]"></div>
+                                        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#FBFBFB80] rounded-br-[14px]"></div>
+
+                                        <span className="text-sm font-ppregular">Live Project</span>
+                                    </a>
+                                    </div>
+                                )}
 
                                 <div className="px-[10px] sm:px-[20px] md:px-[30px] flex flex-col gap-[10px]">
                                     {project.projectImagesStructure?.map((structure, index) => {
@@ -284,7 +390,16 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
                                                     {structure.images.map((image, i) => {
                                                         const currentIndex = globalImageIndex++;
                                                         return (
-                                                            <img ref={el => { if (el && imagesRef.current) imagesRef.current[currentIndex] = el }} key={i} src={image} className={`opacity-0 w-full h-full object-cover`} style={{ borderRadius: `${structure.round}px` }} onLoad={handleImageLoad} />
+                                                            <img
+                                                                ref={el => { if (el && imagesRef.current) imagesRef.current[currentIndex] = el }}
+                                                                key={i}
+                                                                src={image}
+                                                                className={`opacity-0 w-full h-full object-cover`}
+                                                                style={{ borderRadius: `${structure.round}px` }}
+                                                                onLoad={handleImageLoad}
+                                                                loading="lazy"
+                                                                decoding="async"
+                                                            />
                                                         )
                                                     })}
                                                 </div>

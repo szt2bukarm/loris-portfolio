@@ -148,7 +148,7 @@ export default function WorksFreestyleItem({ title, description, image, category
                             <div className="w-[400px] lg:w-[550px] max-w-[90vw] h-fit flex items-center justify-center p-[1px] bg-gradient-to-b from-[#292929] to-[#4D4D4D] rounded-[40px]">
                                 <div className="bg-[#050505] w-full h-full p-[25px] lg:p-[35px] rounded-[39px]">
                                     <p className="text-h4 lg:text-h3 leading-[23px] mb-[20px] font-intranet text-white">{title}</p>
-                                    <p className="text-md lg:text-lg leading-[130%] text-brightgray font-ppsemibold">{description}</p>
+                                    <p className="text-md lg:text-lg leading-[130%] text-brightgray font-ppsemibold" dangerouslySetInnerHTML={{ __html: description.split("<br>")[0] }}></p>
                                 </div>
                             </div>
 

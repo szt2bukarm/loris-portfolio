@@ -27,13 +27,13 @@ const CONFIG = {
     activeOpacity: 1.0,
     radius: 1.0,
     roughness: 1.0,
-    opacity: 1.0,
+    opacity: 1,
     vigBlur: 49,
     vigInset: 43,
-    bloomStrength: 0.05,
-    bloomRadius: 0.04,
-    keyIntensity: 2.5,
-    rimIntensity: 2.5
+    bloomStrength: 0,
+    bloomRadius: 0,
+    keyIntensity: 0,
+    rimIntensity: 0
 };
 
 const INTRO_SETTINGS = {
@@ -145,7 +145,7 @@ export default function WorksListGlass({ hoveredIndex, hasPlayed, shouldScale, o
                     float y = vLocalPos.y;
                     float vapor = noise(vLocalPos.xy * 1.2);
 
-                    float introIntensity = smoothstep(1.0, 0.9, uReveal);
+                    float introIntensity = 1.0 - smoothstep(0.8, 0.95, uReveal);
 
                     if (uReveal < 0.998) {
                         float mask = smoothstep(revealHeight + vapor - 0.1, revealHeight + vapor, y);
@@ -156,8 +156,8 @@ export default function WorksListGlass({ hoveredIndex, hasPlayed, shouldScale, o
                     float fringe = smoothstep(revealHeight + vapor - 0.2, revealHeight + vapor - 0.05, y) 
                                  * (1.0 - smoothstep(revealHeight + vapor - 0.05, revealHeight + vapor, y));
 
-                    diffuseColor.rgb += uBaseColor * aura * 2.5 * introIntensity;
-                    diffuseColor.rgb += uFringeColor * fringe * 8.0 * introIntensity;
+                    diffuseColor.rgb += uBaseColor * aura * 1.8 * introIntensity;
+                    diffuseColor.rgb += uFringeColor * fringe * 5.0 * introIntensity;
                     `
                 );
             };
@@ -235,7 +235,7 @@ export default function WorksListGlass({ hoveredIndex, hasPlayed, shouldScale, o
                 type: THREE.HalfFloatType,
                 format: THREE.RGBAFormat,
                 colorSpace: THREE.SRGBColorSpace,
-                samples: isMobile ? 0 : 8
+                samples: 8
             }
         );
 

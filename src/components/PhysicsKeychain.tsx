@@ -13,7 +13,13 @@ interface PhysicsKeychainProps {
 }
 
 export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
-    const {isMobile} = useStore();
+    const { isMobile } = useStore();
+    const isMobileRef = useRef(isMobile);
+
+    useEffect(() => {
+        isMobileRef.current = isMobile;
+    }, [isMobile]);
+
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [isReady, setIsReady] = useState(false);
@@ -89,7 +95,7 @@ export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
         // Initialize camera
         const camera = new THREE.PerspectiveCamera(
             35,
-            window.innerWidth / Math.max(window.innerWidth < 1280 ? window.innerHeight / 1.5 : window.innerHeight, 750),
+            window.innerWidth / Math.max(window.innerHeight, 750),
             0.1,
             1000
         );
@@ -103,11 +109,9 @@ export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
         // Initial size calculation matching handleResize
         const width = containerRef.current.clientWidth;
         const height = containerRef.current.clientHeight;
-        const baseWidth = width < 1280 ? height / 1.5 : height;
-        const initialHeight = Math.max(baseWidth, 750);
 
-        renderer.setSize(width, initialHeight);
-        renderer.setPixelRatio(isMobile ? 1 : window.devicePixelRatio);
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 1));
         renderer.shadowMap.enabled = !isMobile;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -296,7 +300,7 @@ export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
             // Theoretical manual clamping or damping could go here if needed.
 
             // Step physics
-            const speedFactor = isMobile ? 2.5 : 0;
+            const speedFactor = isMobileRef.current ? 2.5 : 0;
             world.step(TIME_STEP, delta * speedFactor);
 
             // Update mesh positions
@@ -330,15 +334,15 @@ export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
 
             const width = containerRef.current.clientWidth;
             const height = containerRef.current.clientHeight;
-            const baseWidth = width < 1280 ? height / 1.5 : height;
 
-            cameraRef.current.aspect = width / Math.max(baseWidth, 750);
+            cameraRef.current.aspect = width / height;
             cameraRef.current.updateProjectionMatrix();
-            rendererRef.current.setSize(width, Math.max(baseWidth, 750));
+            rendererRef.current.setSize(width, height);
         };
 
         const handleMouseMove = (e: MouseEvent) => {
             if (!interactionEnabledRef.current) return;
+            if (isMobileRef.current) return; // Disable continuous mouse interaction on mobile
             isMouseActiveRef.current = true;
             mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
             mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -374,8 +378,37 @@ export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
             }
         };
 
+        const handlePointerDown = (e: PointerEvent) => {
+            if (!interactionEnabledRef.current) return;
+            if (!isMobileRef.current) return; // Only active on mobile
+
+            const x = (e.clientX / window.innerWidth) * 2 - 1;
+            const y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+            mouseRef.current.set(x, y);
+            raycasterRef.current.setFromCamera(mouseRef.current, cameraRef.current!);
+
+            if (keyRingMeshRef.current && keyRingBodyRef.current) {
+                const intersects = raycasterRef.current.intersectObject(keyRingMeshRef.current, true);
+                if (intersects.length > 0) {
+                    const hitPoint = intersects[0].point;
+                    const dir = raycasterRef.current.ray.direction;
+                    const force = 15; // Impulse strength
+                    const impulse = new CANNON.Vec3(dir.x * force, dir.y * force, dir.z * force);
+
+                    // Apply impulse at the point of impact
+                    keyRingBodyRef.current.wakeUp();
+                    keyRingBodyRef.current.applyImpulse(
+                        impulse,
+                        new CANNON.Vec3(hitPoint.x, hitPoint.y, hitPoint.z)
+                    );
+                }
+            }
+        };
+
         window.addEventListener('resize', handleResize);
         renderer.domElement.addEventListener('mousemove', handleMouseMove);
+        renderer.domElement.addEventListener('pointerdown', handlePointerDown);
 
         // Helper function: Build chain simulation
         function buildChainSimulation() {
@@ -564,6 +597,7 @@ export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
             window.removeEventListener('resize', handleResize);
             if (rendererRef.current?.domElement) {
                 rendererRef.current.domElement.removeEventListener('mousemove', handleMouseMove);
+                rendererRef.current.domElement.removeEventListener('pointerdown', handlePointerDown as any);
             }
             if (rendererRef.current) {
                 rendererRef.current.dispose();

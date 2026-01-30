@@ -42,7 +42,7 @@ export default function WorksListItem({ category, title, year, slug, onSelect, c
                     <p data-hover-target="title" className="text-xl leading-[31px] text-white font-ppsemibold transition-opacity duration-150">{title}</p>
                 </div>
 
-                <p className=" font-ppregular text-right text-md text-white/50 ml-auto lg:ml-[120px] mb-auto translate-y-[0.8px]">{year}</p>
+                <p className=" font-ppregular text-right text-md text-white/50 ml-auto lg:ml-[60px] mb-auto translate-y-[0.8px]">{year}</p>
             </div>
 
         </div>

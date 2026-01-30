@@ -37,27 +37,43 @@ export default function WorksList({ onSelect, paused, onHoverChange }: Props) {
             observerRef.current?.disable();
         } else {
             observerRef.current?.enable();
+            // Recalculate loop point when list becomes active/unpaused
+            // Wait a frame for layout to settle if it was hidden
+            requestAnimationFrame(() => {
+                const targetList = window.innerWidth < 640 ? mobileListRef.current : listRef.current;
+                if (!targetList) return;
+
+                const items = targetList.querySelectorAll('[data-gsap="works-list-item"]');
+                const firstClone = items[sortedProjects.length] as HTMLElement;
+                if (firstClone && firstClone.offsetTop > 0) {
+                    loopPointRef.current = firstClone.offsetTop;
+                } else {
+                    loopPointRef.current = targetList.scrollHeight / 3;
+                }
+            });
         }
-    }, [paused]);
+    }, [paused, sortedProjects.length]);
+
+    const loopPointRef = useRef(0);
 
     useEffect(() => {
         if (!listRef.current) return;
-
-        const loopPointRef = { value: 0 };
 
         const updateLoopPoint = () => {
             const targetList = window.innerWidth < 640 ? mobileListRef.current : listRef.current;
             if (!targetList) return;
 
-            const firstClone = targetList.children[sortedProjects.length] as HTMLElement;
+            const items = targetList.querySelectorAll('[data-gsap="works-list-item"]');
+            const firstClone = items[sortedProjects.length] as HTMLElement;
             if (firstClone && firstClone.offsetTop > 0) {
-                loopPointRef.value = firstClone.offsetTop;
+                loopPointRef.current = firstClone.offsetTop;
             } else {
-                loopPointRef.value = targetList.scrollHeight / 3;
+                // Fallback for unexpected zero offsets
+                loopPointRef.current = targetList.scrollHeight / 3;
             }
         };
 
-        // Wait for layout to settle before calculating loop point
+        // Wait for layout to settle
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 updateLoopPoint();
@@ -67,15 +83,19 @@ export default function WorksList({ onSelect, paused, onHoverChange }: Props) {
         const handleTicker = () => {
             if (pausedRef.current) return;
 
+            // Recalculate if we still have a 0 loop point (e.g. started hidden)
+            if (loopPointRef.current === 0) {
+                updateLoopPoint();
+            }
+
             const isMobile = window.innerWidth < 640;
             const diff = targetYRef.current - currentYRef.current;
 
-            // Snappier, more precise follow on mobile
             const lerpFactor = isMobile ? 0.1 : 0.02;
             currentYRef.current += diff * lerpFactor;
 
             // Infinite loop logic
-            const loopPoint = loopPointRef.value;
+            const loopPoint = loopPointRef.current;
             if (loopPoint > 0) {
                 if (currentYRef.current >= loopPoint) {
                     currentYRef.current -= loopPoint;
@@ -87,12 +107,9 @@ export default function WorksList({ onSelect, paused, onHoverChange }: Props) {
             }
 
             // Direct DOM update
-            if (listRef.current) {
-                listRef.current.style.transform = `translate3d(0, ${-currentYRef.current}px, 0)`;
-            }
-            if (mobileListRef.current) {
-                mobileListRef.current.style.transform = `translate3d(0, ${-currentYRef.current}px, 0)`;
-            }
+            const offset = -currentYRef.current;
+            if (listRef.current) listRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+            if (mobileListRef.current) mobileListRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
 
             // --- Scroll-Aware Hover Logic ---
             if (cursorRef.current.x !== 0 || cursorRef.current.y !== 0) {

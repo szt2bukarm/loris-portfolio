@@ -23,6 +23,7 @@ import NavLogo from "@/components/Common/NavLogo";
 import SmoothScroll from "./SmoothScroll";
 import MobileTest from "./MobileTest";
 import ContactWrapper from "@/components/ContactCTA/ContactWrapper";
+import Loader from "./Loader";
 
 export default function RootLayout({
   children,
@@ -33,8 +34,9 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en">
         <body>
+          <Loader />
+          <NavLogo />
           <SmoothScroll>
-            <NavLogo />
             <MobileTest />
             <ContactWrapper />
             {children}
