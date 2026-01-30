@@ -2,6 +2,7 @@ import { useGSAP } from "@gsap/react";
 import { useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import CategoryTag from "@/components/Common/CategoryTag";
+import Image from "next/image";
 
 import { useStore } from "@/app/useStore";
 
@@ -92,6 +93,20 @@ export default function WorksFreestyleItem({ title, description, image, category
         return () => window.removeEventListener("resize", checkPosition);
     }, [checkPosition]);
 
+    const xTo = useRef<any[]>([]);
+    const yTo = useRef<any[]>([]);
+
+    useGSAP(() => {
+        xTo.current = [];
+        yTo.current = [];
+        hoverRef.current.forEach((el) => {
+            if (el) {
+                xTo.current.push(gsap.quickTo(el, "x", { duration: 0.1, ease: "power3" }));
+                yTo.current.push(gsap.quickTo(el, "y", { duration: 0.1, ease: "power3" }));
+            }
+        });
+    }, []);
+
     const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
         if (isMobile) return;
         if (!itemRef.current) return;
@@ -104,30 +119,37 @@ export default function WorksFreestyleItem({ title, description, image, category
         const x = (e.clientX - centerX) / (rect.width / 2);
         const y = (e.clientY - centerY) / (rect.height / 2);
 
-
-        if (hoverRef.current) {
-            gsap.set(hoverRef.current, {
-                x: x * 10,
-                y: y * 10,
-            });
-        }
+        xTo.current.forEach((func) => func(x * 10));
+        yTo.current.forEach((func) => func(y * 10));
     };
 
     const show = shouldReveal !== undefined ? shouldReveal : isLoaded;
 
     return (
         <div data-gsap="works-freestyle-item" onClick={() => onSelect(slug)} onMouseOver={onMouseOver} onMouseOut={onMouseOut} ref={itemRef} onMouseMove={(e) => handleHover(e)} className={`group relative flex items-center justify-center h-full w-full aspect-square overflow-visible transition-opacity duration-250 cursor-pointer hover:z-[110] opacity-0 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
-            <img
+            <Image
                 src={image}
+                alt={title}
+                fill
+                sizes="(max-width: 768px) 50vw, 20vw"
+                quality={60}
+                priority
                 onLoad={() => { setIsLoaded(true); onInternalLoad?.(); }}
                 onError={() => { onInternalLoad?.(); }}
-                className={`w-full h-full object-contain transition-opacity duration-500 ${show ? "opacity-100" : "opacity-0"}`}
+                className={`object-contain transition-opacity duration-500 ${show ? "opacity-100" : "opacity-0"}`}
             />
 
             {!isMobile && (
                 <>
-                    <div ref={el => { if (el) hoverRef.current[0] = el }} className="group-hover:opacity-100 opacity-0 absolute inset-0 z-[111] overflow-visible  pointer-events-none">
-                        <img src={image} className="w-full h-full object-contain" />
+                    <div ref={el => { if (el) hoverRef.current[0] = el }} className="group-hover:opacity-100 opacity-0 absolute inset-0 z-[111] overflow-visible  pointer-events-none will-change-transform">
+                        <Image
+                            src={image}
+                            alt={title}
+                            fill
+                            sizes="(max-width: 768px) 50vw, 20vw"
+                            quality={60}
+                            className="object-contain"
+                        />
                     </div>
 
                     <div
@@ -143,7 +165,7 @@ export default function WorksFreestyleItem({ title, description, image, category
                         <div
                             ref={el => { if (el) hoverRef.current[1] = el }}
                             className="flex flex-col gap-[10px]
-                                        group-hover:opacity-100 opacity-0"
+                                        group-hover:opacity-100 opacity-0 will-change-transform"
                         >
                             <div className="w-[400px] lg:w-[550px] max-w-[90vw] h-fit flex items-center justify-center p-[1px] bg-gradient-to-b from-[#292929] to-[#4D4D4D] rounded-[40px]">
                                 <div className="bg-[#050505] w-full h-full p-[25px] lg:p-[35px] rounded-[39px]">

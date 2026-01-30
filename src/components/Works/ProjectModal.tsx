@@ -46,21 +46,23 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
 
     useEffect(() => {
         if (!project) return;
-        if (totalImages === 0) {
+        // Always set layout ready after a brief delay to allow initial DOM paint
+        // We no longer wait for all images because loading="lazy" would cause a deadlock
+        const t = setTimeout(() => {
             setIsLayoutReady(true);
-        } else {
-            // Reset if project changes (though modal likely unmounts)
-            loadedImagesCount.current = 0;
-            setIsLayoutReady(false);
-        }
-    }, [project, totalImages]);
+        }, 100);
+
+        return () => clearTimeout(t);
+    }, [project]);
+
+    // Debounce resize/load refreshes to avoid thrashing
+    const refreshTimeout = useRef<NodeJS.Timeout | null>(null);
 
     const handleImageLoad = () => {
-        loadedImagesCount.current++;
-        if (loadedImagesCount.current >= totalImages) {
-            // Small delay to ensure layout paint
-            setTimeout(() => setIsLayoutReady(true), 100);
-        }
+        if (refreshTimeout.current) clearTimeout(refreshTimeout.current);
+        refreshTimeout.current = setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 200);
     };
 
 
@@ -372,13 +374,13 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
                                 {project.website && (
                                     <div data-gsap="project-website" className="opacity-0 mb-[100px] w-full flex justify-center">
                                         <a href={project.website} target="_blank" rel="noopener noreferrer" className="relative inline-block px-6 py-4 hover:px-8 transition-all duration-150 text-white group -mt-4 [@media(max-height:750px)]:mt-0">
-                                        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FBFBFB80] rounded-tl-[14px]"></div>
-                                        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#FBFBFB80] rounded-tr-[14px]"></div>
-                                        <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#FBFBFB80] rounded-bl-[14px]"></div>
-                                        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#FBFBFB80] rounded-br-[14px]"></div>
+                                            <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FBFBFB80] rounded-tl-[14px]"></div>
+                                            <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#FBFBFB80] rounded-tr-[14px]"></div>
+                                            <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#FBFBFB80] rounded-bl-[14px]"></div>
+                                            <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#FBFBFB80] rounded-br-[14px]"></div>
 
-                                        <span className="text-sm font-ppregular">Live Project</span>
-                                    </a>
+                                            <span className="text-sm font-ppregular">Live Project</span>
+                                        </a>
                                     </div>
                                 )}
 

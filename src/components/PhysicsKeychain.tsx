@@ -92,10 +92,14 @@ export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
         // scene.fog = new THREE.FogExp2(0x000000, 0.02); // Removed for transparency
         sceneRef.current = scene;
 
+        // Initial size calculation matching handleResize
+        const width = containerRef.current.clientWidth;
+        const height = containerRef.current.clientHeight;
+
         // Initialize camera
         const camera = new THREE.PerspectiveCamera(
             35,
-            window.innerWidth / Math.max(window.innerHeight, 750),
+            width / height,
             0.1,
             1000
         );
@@ -105,10 +109,6 @@ export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
 
         // Initialize renderer
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); // Alpha true for transparency, [FIX] Disable AA for performance
-
-        // Initial size calculation matching handleResize
-        const width = containerRef.current.clientWidth;
-        const height = containerRef.current.clientHeight;
 
         renderer.setSize(width, height);
         renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 1));
