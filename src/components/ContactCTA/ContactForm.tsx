@@ -227,7 +227,8 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
 
                         <p className="text-white/50 font-ppregular text-sm text-center [@media(max-height:750px)]:mx-[15px]">OR</p>
 
-                        <a href="mailto:studio@lorisbukvic.graphics" className="relative inline-block px-6 py-4 hover:px-8 transition-all duration-150 text-white group -mt-4 [@media(max-height:950px)]:mt-0">
+                        <div className="min-w-[340px] flex items-center justify-center">
+                            <a href="mailto:studio@lorisbukvic.graphics" className="relative inline-block px-6 py-4 hover:px-8 transition-all duration-150 text-white group -mt-4 [@media(max-height:950px)]:mt-0">
                             <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FBFBFB80] rounded-tl-[14px]"></div>
                             <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#FBFBFB80] rounded-tr-[14px]"></div>
                             <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#FBFBFB80] rounded-bl-[14px]"></div>
@@ -235,6 +236,7 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
 
                             <span className="text-sm font-ppregular">Send email to studio@lorisbukvic.graphics</span>
                         </a>
+                        </div>
                     </div>
                 </form>
             </div>
