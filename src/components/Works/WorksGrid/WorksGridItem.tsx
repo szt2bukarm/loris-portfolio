@@ -47,7 +47,7 @@ export default function WorksGridItem({
                     {authors.map((author, index) => (
                         <div key={index} className="group/author relative flex items-center justify-center w-[38px] h-[38px] bg-gradient-to-b from-white to-midgray rounded-full ml-[-10px]">
                             <img src={author} className="w-[34px] h-[34px] object-cover rounded-full" />
-                            <p className={`${theme === "dark" ? "invert-0" : "invert"} absolute top-[-40px] left-1/2 -translate-x-1/2 w-fit px-[12px] pt-[8px] pb-[7px] rounded-[25px] bg-black border border-darkgray font-ppsemibold text-white text-sm leading-[100%] group-hover/author:opacity-100 opacity-0 transition-all duration-150 text-nowrap`}><span className="block translate-y-[1px]">{`${author === "/assets/loris.webp" && "Loris - Designer" || author === "/assets/armin.webp" && "Armin - Developer"}`}</span></p>
+                            <p className={`${theme === "dark" ? "invert-0" : "invert"} absolute top-[-40px] left-1/2 -translate-x-1/2 w-fit px-[12px] pt-[8px] pb-[7px] rounded-[25px] bg-black border border-darkgray font-ppsemibold text-white text-sm leading-[100%] group-hover/author:opacity-100 opacity-0 transition-all duration-150 text-nowrap pointer-events-none`}><span className="block translate-y-[1px]">{`${author === "/assets/loris.webp" && "Loris - Designer" || author === "/assets/armin.webp" && "Armin - Developer"}`}</span></p>
                         </div>
                     ))}
                 </div>

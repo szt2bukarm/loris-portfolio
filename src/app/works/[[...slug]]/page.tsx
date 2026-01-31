@@ -108,7 +108,7 @@ export default function page({ params }: { params: { slug?: string[] } }) {
 
     return (
         <main className={`w-full h-full min-h-[100dvh] bg-black relative`}>
-            <img data-gsap="works-dots" className="opacity-0 fixed z-0 top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] w-[5000px] h-[5000px] pointer-events-none" src="dots.svg" />
+            <img data-gsap="works-dots" className="opacity-0 fixed z-0 top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] w-[5000px] h-[5000px] pointer-events-none" src="/dots.svg" />
             <WorksNav viewStyle={viewStyle} setViewStyle={setViewStyle} />
             <WorksShader />
 
