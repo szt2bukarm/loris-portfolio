@@ -91,7 +91,7 @@ const SpawnedImage = ({ src, zIndex, onEnterComplete }: { src: string; zIndex: n
             src={src}
             className="absolute top-1/2 left-0 w-full h-auto rounded-[13px] shadow-lg will-change-transform"
             style={{ zIndex }}
-            alt=""
+            alt="award image"
         />
     );
 };

@@ -92,10 +92,10 @@ export default function WorksNav({ viewStyle, setViewStyle }: Props) {
             {/* display style */}
             <div data-gsap="nav-display-style" className="relative md:absolute md:left-1/2 md:translate-x-[-50%] flex gap-[10px] items-center">
                 <button className={`${viewStyle === "list" ? "w-full h-full" : "w-full h-full opacity-50 hover:opacity-30"} transition-all duration-150`} onClick={() => changeView("list")}>
-                    <img src="/icons/list.svg" className="w-[20px]" />
+                    <img alt="list button icon" src="/icons/list.svg" className="w-[20px]" />
                 </button>
                 <button className={`${viewStyle === "grid" ? "w-full h-full" : "w-full h-full opacity-50 hover:opacity-30"} transition-all duration-150`} onClick={() => changeView("grid")}>
-                    <img src="/icons/grid.svg" className="w-[24px]" />
+                    <img alt="grid button icon" src="/icons/grid.svg" className="w-[24px]" />
                 </button>
             </div>
             {/* Always render, animate opacity */}

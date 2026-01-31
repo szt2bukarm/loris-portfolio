@@ -338,6 +338,7 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
                                     <div className="z-0 absolute top-0 left-0 w-full h-[300px] md:h-[500px]" style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 0%, black 45%, transparent 85%)' }}>
                                         {project.bannerType == "image" && (
                                             <img
+                                                alt="banner of the project"
                                                 src={project.banner}
                                                 className="min-w-full h-full object-cover object-[50%_60%] will-change-auto"
                                                 /* @ts-ignore */
@@ -393,6 +394,7 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
                                                         const currentIndex = globalImageIndex++;
                                                         return (
                                                             <img
+                                                                alt="image of the project"
                                                                 ref={el => { if (el && imagesRef.current) imagesRef.current[currentIndex] = el }}
                                                                 key={i}
                                                                 src={image}

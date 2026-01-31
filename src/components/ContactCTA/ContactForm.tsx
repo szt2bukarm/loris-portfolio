@@ -164,16 +164,16 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
                 <div className="absolute left-1/2 -translate-x-1/2 top-[-75px] w-[300px] h-[150px] bg-brightgray blur-[100px] z-0" />
 
                 <button onClick={onClose} className="absolute top-[20px] right-[20px] w-[50px] h-[50px] rounded-full bg-white/[0.1] backdrop-blur-[10px] border border-[#494949] z-10 flex items-center justify-center hover:brightness-200 transition-[filter] duration-300 cursor-pointer">
-                    <img src="/icons/close.svg" alt="close" />
+                    <img src="/icons/close.svg" alt="close icon" />
                 </button>
 
                 <div className="flex flex-col items-center z-10 mb-[25px] pointer-events-none">
                     <div className="flex items-center mb-[15px]">
                         <div data-gsap='contact-personicon' className="w-[65px] h-[65px] rounded-full p-[2.5px] flex items-center justify-center bg-gradient-to-b from-white to-midgray ">
-                            <img src="/assets/loris.webp" className="w-full h-full object-cover rounded-full" />
+                            <img alt="Portrait of Loris" src="/assets/loris.webp" className="w-full h-full object-cover rounded-full" />
                         </div>
                         <div data-gsap='contact-personicon' className="w-[65px] h-[65px] rounded-full p-[2.5px] flex items-center justify-center bg-gradient-to-b from-white to-midgray -ml-5">
-                            <img src="/assets/client_icon.webp" className="w-full h-full object-cover rounded-full" />
+                            <img alt="Icon representing a future client" src="/assets/client_icon.webp" className="w-full h-full object-cover rounded-full" />
                         </div>
                     </div>
 

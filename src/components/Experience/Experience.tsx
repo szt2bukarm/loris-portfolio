@@ -59,13 +59,13 @@ const data = [
         content: (
             <div className="flex sm:items-center lg:w-[300px] flex-col sm:flex-row xl:w-full flex-wrap gap-[20px] md:gap-[32px]">
                 <div className="overflow-hidden">
-                    <img src="/assets/clients/stc.png" className="experience-client-logo w-[65px] mt-[10px] md:mt-0" />
+                    <img alt="stc logo" src="/assets/clients/stc.png" className="experience-client-logo w-[65px] mt-[10px] md:mt-0" />
                 </div>
                 <div className="overflow-hidden">
-                    <img src="/assets/clients/parkbee.png" className="experience-client-logo w-[145px]" />
+                    <img alt="parkbee logo" src="/assets/clients/parkbee.png" className="experience-client-logo w-[145px]" />
                 </div>
                 <div className="overflow-hidden">
-                    <img src="/assets/clients/amca.png" className="experience-client-logo w-[142px]" />
+                    <img alt="amca logo" src="/assets/clients/amca.png" className="experience-client-logo w-[142px]" />
                 </div>
             </div>
         ),
@@ -269,6 +269,7 @@ const ExperienceLarge = () => {
                 <div className="absolute left-1/2 -translate-x-1/2 top-[33px] h-full pointer-events-none">
                     <div className="sticky top-[50vh] -translate-y-1/2 flex justify-center">
                         <img
+                            alt="icon for experience section"
                             src="/icons/experience_icon.png"
                             className="w-[92px]"
                         />

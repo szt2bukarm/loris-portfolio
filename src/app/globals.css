@@ -63,11 +63,12 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.loader{
+.loader {
   animation: loader 0.4s linear infinite;
 }

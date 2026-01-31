@@ -72,6 +72,7 @@ export default function ContactCTA() {
                 {/* Image */}
                 <div className="absolute inset-[2px] rounded-[24px] overflow-hidden z-0">
                     <img
+                        alt="contact background image"
                         src="/assets/contact_bg.webp"
                         className="w-full min-h-[70vh] max-h-[70vh] h-[89vh] object-cover object-[80%] md:object-[70%] xl:object-[85%]"
                     />
@@ -97,10 +98,10 @@ export default function ContactCTA() {
                 >
                     <div className="flex items-center mb-[15px]">
                         <div className="w-[65px] h-[65px] rounded-full p-[2.5px] flex items-center justify-center bg-gradient-to-b from-white to-midgray ">
-                            <img src="/assets/loris.webp" className="w-full h-full object-cover rounded-full" />
+                            <img alt="Portrait of Loris" src="/assets/loris.webp" className="w-full h-full object-cover rounded-full" />
                         </div>
                         <div className="w-[65px] h-[65px] rounded-full p-[2.5px] flex items-center justify-center bg-gradient-to-b from-white to-midgray -ml-5">
-                            <img src="/assets/client_icon.webp" className="w-full h-full object-cover rounded-full" />
+                            <img alt="Icon representing a future client" src="/assets/client_icon.webp" className="w-full h-full object-cover rounded-full" />
                         </div>
                     </div>
 

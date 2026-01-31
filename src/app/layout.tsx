@@ -11,44 +11,44 @@ import Loader from "./Loader";
 import TabTitleLooper from "./TabTitleLooper";
 
 export const metadata: Metadata = {
+  title: "Loris Bukvic Portfolio",
+  description: "Loris Bukvic is an award winning website and multimedia designer. Specializing in premium website design, user experience, and interactive storytelling. ",
+  keywords: [
+    "Loris Bukvic",
+    "Bukvity Lorisz",
+    "Loris Bukvic",
+    "Lorisz Bukvity",
+    "Web Designer",
+    "Multimedia Designer",
+    "Creative Developer",
+    "UI/UX Design",
+    "Award Winning",
+    "Webflow",
+    "Interactive Design",
+    "Bespoke Websites",
+    "Branding",
+    "Frontend Developer",
+  ],
+  openGraph: {
     title: "Loris Bukvic Portfolio",
-    description: "Loris Bukvic is an award winning website and multimedia designer. Specializing in premium website design, user experience, and interactive storytelling. ",
-    keywords: [
-      "Loris Bukvic",
-      "Bukvity Lorisz",
-      "Loris Bukvic",
-      "Lorisz Bukvity",
-      "Web Designer",
-      "Multimedia Designer",
-      "Creative Developer",
-      "UI/UX Design",
-      "Award Winning",
-      "Webflow",
-      "Interactive Design",
-      "Bespoke Websites",
-      "Branding",
-      "Frontend Developer",
-    ],
-    openGraph: {
-      title: "Loris Bukvic Portfolio",
-      description: "Loris Bukvic is an award winning website and multimedia designer. Specializing in premium website design, user experience, and interactive storytelling.",
-      url: "https://www.lorisbukvic.graphics",
-      siteName: "Loris Bukvic Webdesign Portfolio",
-      type: "website",
-      locale: "en_US",
-      images: [
-        {
-          url: "https://www.lorisbukvic.graphics/og.webp",
-          width: 1200,
-          height: 630,
-          alt: "Loris Bukvic Webdesign Portfolio",
-        },
-      ]
-    },
-    icons: {
-      icon: "/icons/logo.svg",
-    }
-  };
+    description: "Loris Bukvic is an award winning website and multimedia designer. Specializing in premium website design, user experience, and interactive storytelling.",
+    url: "https://www.lorisbukvic.graphics",
+    siteName: "Loris Bukvic Webdesign Portfolio",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "https://www.lorisbukvic.graphics/og.webp",
+        width: 1200,
+        height: 630,
+        alt: "Loris Bukvic Webdesign Portfolio",
+      },
+    ]
+  },
+  icons: {
+    icon: "/icons/logo.svg",
+  }
+};
 
 export default function RootLayout({
   children,
