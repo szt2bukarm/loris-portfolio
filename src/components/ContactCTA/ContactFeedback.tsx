@@ -21,7 +21,7 @@ const data = [
   {
     name: "ParkBee",
     image: "/assets/clients/parkbee.png",
-    text: "“ Thanks so much! It was great working with you on this project. They look great, I believe it’s a wrap :)”"
+    text: "Thanks so much! It was great working with you on this project. They look great, I believe it’s a wrap :)"
   }
 ]
 
@@ -61,21 +61,21 @@ export default function ContactFeedback() {
 
   return (
     <div
-        data-gsap="contact-feedback"
+      data-gsap="contact-feedback"
       ref={containerRef}
       className="flex flex-col gap-[10px] w-[500px] text-center opacity-0 mx-auto xl:translate-x-[-50px] 2xl:translate-x-0 mt-[50px] min-h-[120px] scale-[0.75] sm:scale-100"
     >
       {image === null && (
         <p className="text-h4 font-intranet text-brightgray leading-[100%]">
-        {name}
-      </p>
+          {name}
+        </p>
       )}
       {image !== null && (
         <img src={image} alt={name} className="h-[30px] object-contain mb-[16px]" />
       )}
       <p
         className="text-md font-ppregular text-white leading-[130%]"
-        dangerouslySetInnerHTML={{ __html: text }}
+        dangerouslySetInnerHTML={{ __html: `<span style="color: #888888; margin-right: 2px;">"</span>${text}<span style="color: #888888; margin-left: 2px;">"</span>` }}
       />
     </div>
   )

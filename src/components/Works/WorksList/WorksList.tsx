@@ -6,6 +6,7 @@ import WorksListItem from "./WorksListItem";
 import gsap from "gsap";
 import { Observer } from "gsap/dist/Observer";
 import WorksListItemMobile from "./WorksListItemMobile";
+import { useStore } from "@/app/useStore";
 
 gsap.registerPlugin(Observer);
 
@@ -40,7 +41,8 @@ export default function WorksList({ onSelect, paused, onHoverChange }: Props) {
             // Recalculate loop point when list becomes active/unpaused
             // Wait a frame for layout to settle if it was hidden
             requestAnimationFrame(() => {
-                const targetList = window.innerWidth < 640 ? mobileListRef.current : listRef.current;
+                // Check which list is actually visible in the DOM
+                const targetList = (listRef.current?.offsetParent !== null) ? listRef.current : mobileListRef.current;
                 if (!targetList) return;
 
                 const items = targetList.querySelectorAll('[data-gsap="works-list-item"]');
@@ -60,7 +62,8 @@ export default function WorksList({ onSelect, paused, onHoverChange }: Props) {
         if (!listRef.current) return;
 
         const updateLoopPoint = () => {
-            const targetList = window.innerWidth < 640 ? mobileListRef.current : listRef.current;
+            // Check which list is actually visible in the DOM
+            const targetList = (listRef.current?.offsetParent !== null) ? listRef.current : mobileListRef.current;
             if (!targetList) return;
 
             const items = targetList.querySelectorAll('[data-gsap="works-list-item"]');
@@ -83,12 +86,11 @@ export default function WorksList({ onSelect, paused, onHoverChange }: Props) {
         const handleTicker = () => {
             if (pausedRef.current) return;
 
-            // Recalculate if we still have a 0 loop point (e.g. started hidden)
             if (loopPointRef.current === 0) {
                 updateLoopPoint();
             }
 
-            const isMobile = window.innerWidth < 640;
+            const isMobile = useStore.getState().isMobile;
             const diff = targetYRef.current - currentYRef.current;
 
             const lerpFactor = isMobile ? 0.1 : 0.02;
@@ -154,18 +156,16 @@ export default function WorksList({ onSelect, paused, onHoverChange }: Props) {
             onChange: (self) => {
                 if (pausedRef.current) return;
 
-                const isMobile = window.innerWidth < 640;
+                const isMobile = useStore.getState().isMobile;
                 const isWheel = self.event.type === 'wheel';
 
-                // 1:1 tracking for precision
                 const multiplier = isWheel ? 1 : -1.0;
                 targetYRef.current += self.deltaY * multiplier;
             },
             onRelease: (self) => {
                 if (pausedRef.current || self.event.type === 'wheel') return;
-                const isMobile = window.innerWidth < 640;
+                const isMobile = useStore.getState().isMobile;
                 if (isMobile) {
-                    // Momentum injection for effortless feel
                     const momentumMultiplier = -0.15;
                     targetYRef.current += self.velocityY * momentumMultiplier;
                 }
@@ -208,7 +208,7 @@ export default function WorksList({ onSelect, paused, onHoverChange }: Props) {
             className="absolute bottom-[15px] left-0 lg:left-[40px] right-0 h-[calc(100dvh-130px)] sm:h-[50dvh] lg:h-[calc(100dvh-160px)] overflow-hidden z-[2]"
             style={{
                 WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 45%, black 55%, transparent)',
-                touchAction: 'none' // Disable browser touch handling
+                touchAction: 'none' 
             }}
         >
 
