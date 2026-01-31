@@ -8,6 +8,8 @@ import MobileTest from "./MobileTest";
 import ContactWrapper from "@/components/ContactCTA/ContactWrapper";
 import Loader from "./Loader";
 
+import { Analytics } from "@vercel/analytics/next"
+
 import TabTitleLooper from "./TabTitleLooper";
 
 export const metadata: Metadata = {
@@ -92,6 +94,7 @@ export default function RootLayout({
             <TabTitleLooper />
             <ContactWrapper />
             {children}
+            <Analytics />
           </SmoothScroll>
         </body>
       </html>
