@@ -73,7 +73,7 @@ export default function ContactCTA() {
                 <div className="absolute inset-[2px] rounded-[24px] overflow-hidden z-0">
                     <img
                         src="/assets/contact_bg.webp"
-                        className="w-full min-h-[70vh] max-h-[70vh] h-[89vh] object-cover object-[80%] sm:object-[85%]"
+                        className="w-full min-h-[70vh] max-h-[70vh] h-[89vh] object-cover object-[80%] md:object-[70%] xl:object-[85%]"
                     />
                     <div className="absolute bottom-0 w-full h-[400px] bg-gradient-to-b from-transparent to-black/90 z-10" />
                 </div>
@@ -83,7 +83,8 @@ export default function ContactCTA() {
                     className="
                         absolute
                         md:inset-y-0
-                        md:left-[13vw]
+                        md:left-[5vw]
+                        xl:left-[13vw]
                         z-20
                         md:min-h-[70vh]
                         md:max-h-[70vh]

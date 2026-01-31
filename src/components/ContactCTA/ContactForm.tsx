@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GrayButton from "../Common/GrayButton";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -17,6 +17,36 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
     const lenis = useLenis();
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
+    const [formHeight, setFormHeight] = useState("430px");
+
+    const updateFormHeight = () => {
+        if (typeof window !== 'undefined') {
+            const h = window.innerHeight;
+            const w = window.innerWidth;
+
+            // Base height
+            let newHeight = "430px";
+
+            if (w >= 768) {
+                if (h >= 1250) {
+                    newHeight = "70%";
+                } else if (h < 1250 && h >= 1150) {
+                    newHeight = "67%";
+                } else if (h < 1150 && h >= 1050) {
+                    newHeight = "63%";
+                } else if (h < 1050 && h >= 950) {
+                    newHeight = "61%";
+                } else if (h < 950 && h >= 750) {
+                    newHeight = "69%";
+                } else if (h < 750) {
+                    newHeight = "55%";
+                }
+            }
+
+            setFormHeight(newHeight);
+        }
+    }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
@@ -118,7 +148,13 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
             ease: "genyo"
         })
 
+    }, [])
 
+    useEffect(() => {
+        updateFormHeight();
+        const handleResize = () => updateFormHeight();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, [])
 
 
@@ -148,7 +184,7 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
                 </div>
 
                 <form data-gsap="contact-form" onSubmit={handleSubmit} className="w-[calc(100%-10px)] sm:w-[calc(100%-40px)] z-10 flex flex-col items-center flex-1">
-                    <div className="w-full h-[430px] md:h-[60%] bg-[#060606] border border-[#232323] rounded-[27px] p-[15px] flex flex-col mb-[20px]">
+                    <div style={{ height: formHeight }} className="w-full bg-[#060606] border border-[#232323] rounded-[27px] p-[15px] flex flex-col mb-[20px]">
 
                         {/* top inputs */}
                         <div className="flex gap-[8px] mb-[8px] flex-col md:flex-row">
@@ -183,7 +219,7 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
                         />
                     </div>
 
-                    <div className="flex flex-col items-center gap-[30px] md:[@media(max-height:850px)]:gap-[10px] md:[@media(max-height:750px)]:flex-row justify-center">
+                    <div className="flex flex-col items-center gap-[30px] md:[@media(max-height:950px)]:flex-row justify-center">
                         <GrayButton
                             disabled={!isFormValid || status === "loading"}
                             type="submit"
@@ -192,7 +228,7 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
 
                         <p className="text-white/50 font-ppregular text-sm text-center [@media(max-height:750px)]:mx-[15px]">OR</p>
 
-                        <a href="mailto:studio@lorisbukvic.graphics" className="relative inline-block px-6 py-4 hover:px-8 transition-all duration-150 text-white group -mt-4 [@media(max-height:750px)]:mt-0">
+                        <a href="mailto:studio@lorisbukvic.graphics" className="relative inline-block px-6 py-4 hover:px-8 transition-all duration-150 text-white group -mt-4 [@media(max-height:950px)]:mt-0">
                             <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FBFBFB80] rounded-tl-[14px]"></div>
                             <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#FBFBFB80] rounded-tr-[14px]"></div>
                             <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#FBFBFB80] rounded-bl-[14px]"></div>

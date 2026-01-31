@@ -12,6 +12,7 @@ import gsap from "gsap";
 import { useState, useEffect } from "react";
 import ProjectModal from "@/components/Works/ProjectModal";
 import { useLenis } from "@studio-freight/react-lenis";
+import projects from "@/app/data/projects";
 
 export default function page({ params }: { params: { slug?: string[] } }) {
     const [viewStyle, setViewStyle] = useState("list");
@@ -33,8 +34,16 @@ export default function page({ params }: { params: { slug?: string[] } }) {
     // Handle initial load from URL
     useEffect(() => {
         if (params.slug && params.slug.length > 0) {
-            setSelectedProject(params.slug[0]);
-            setIsModalOpen(true);
+            const slug = params.slug[0];
+            const projectExists = projects.find(p => p.slug === slug);
+
+            if (projectExists) {
+                setSelectedProject(slug);
+                setIsModalOpen(true);
+            } else {
+                // Invalid slug - redirect to home
+                window.location.href = "/";
+            }
         }
     }, [params.slug]);
 

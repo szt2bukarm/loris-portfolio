@@ -179,7 +179,7 @@ export default function WorksListGlass({ hoveredIndex, hasPlayed, shouldScale, o
         });
         renderer.setClearColor(0x000000, 0);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(isMobile ? 1.0 : Math.min(window.devicePixelRatio, 2));
+        renderer.setPixelRatio(isMobile ? 0.75 : Math.min(window.devicePixelRatio, 2));
         renderer.toneMapping = THREE.NoToneMapping;
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         containerRef.current.appendChild(renderer.domElement);

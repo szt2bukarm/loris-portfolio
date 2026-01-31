@@ -131,7 +131,7 @@ export default function WorksMarquee() {
                         })}
                         {workImages.map((img, i) => {
                             return (
-                                <div key={`set2-${i}`} className="max-w-[280px] min-w-[280px] min-h-full transition-opacity duration-300 group-hover:opacity-60">
+                                <div data-gsap="works-marquee-image" key={`set2-${i}`} className="max-w-[280px] min-w-[280px] min-h-full transition-opacity duration-300 group-hover:opacity-60">
                                     <img src={`/assets/project_images/${img}`} className="w-full h-full object-cover" />
                                 </div>
                             );
