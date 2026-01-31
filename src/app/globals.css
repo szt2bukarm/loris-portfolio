@@ -50,7 +50,7 @@ body {
 
 ::view-transition-new(root) {
   z-index: 1;
-  animation: 0.4s ease-in-out fade-in both;
+  animation: 0s ease-in-out fade-in both;
   animation-delay: 0.4s;
   mix-blend-mode: normal;
 }
