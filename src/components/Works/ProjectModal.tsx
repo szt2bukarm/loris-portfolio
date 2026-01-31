@@ -27,7 +27,7 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
     const project = projects.find((p) => p.slug === slug);
     const imagesRef = useRef<HTMLImageElement[]>([]);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const { openContact } = useStore();
+    const openContact = useStore((state) => state.openContact);
     const [progressValue, setProgressValue] = useState(0);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLayoutReady, setIsLayoutReady] = useState(false);
@@ -275,13 +275,13 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
             });
         };
 
-        // Schedule the split to run in the next animation frame to allow layout settling
-        animationFrame = requestAnimationFrame(runSplit);
+        document.fonts.ready.then(() => {
+            animationFrame = requestAnimationFrame(runSplit);
+        });
 
         return () => {
             if (animationFrame) cancelAnimationFrame(animationFrame);
             if (split) split.revert();
-            // Note: GSAP context automatically kills timelines/triggers created inside
         };
 
     }, [isLayoutReady, project, windowWidth]);
@@ -342,7 +342,7 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
                                                 src={project.banner}
                                                 className="min-w-full h-full object-cover object-[50%_60%] will-change-auto"
                                                 /* @ts-ignore */
-                                                fetchpriority="high"
+                                                fetchPriority="high"
                                                 decoding="async"
                                             />
                                         )}
@@ -358,7 +358,9 @@ export default function ProjectModal({ slug, onClose, isOpen, onAnimationComplet
                                         <div className="flex gap-[3px] mb-[20px]">
                                             {project.category.map((cat, index) => {
                                                 return (
-                                                    <div data-gsap="project-category" className="w-fit h-full">
+                                                    <div
+                                                        key={index}
+                                                        data-gsap="project-category" className="w-fit h-full">
                                                         <CategoryTag key={index} category={cat.category} icon={cat.icon} />
                                                     </div>
                                                 )

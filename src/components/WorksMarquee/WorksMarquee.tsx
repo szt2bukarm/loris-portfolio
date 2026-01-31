@@ -32,6 +32,7 @@ export default function WorksMarquee() {
     useGSAP(() => {
         if (!lenis) return;
         lenis.stop();
+        document.body.style.userSelect = 'none';
         gsap.from("[data-gsap='works-marquee-image']", {
             y: 100,
             duration: 1.5,
@@ -40,6 +41,7 @@ export default function WorksMarquee() {
             ease: "back.out(1.5)",
             onComplete: () => {
                 lenis.start();
+                document.body.style.userSelect = '';
             }
         })
     }, [lenis])

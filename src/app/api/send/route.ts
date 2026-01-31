@@ -17,9 +17,9 @@ export async function POST(request: Request) {
     try {
         const { data, error } = await resend.emails.send({
             from: `${name} <studio@lorisbukvic.graphics>`,
-            to: ['bukvicloris@gmail.com'],
+            to: ['studio@lorisbukvic.graphics'],
             replyTo: email,
-            subject: `New message from ${name}`,
+            subject: `New message from ${name} - ${email}`,
             text: `${name} says: ${message}`
         });
 
@@ -32,10 +32,9 @@ export async function POST(request: Request) {
             from: 'Loris Bukvic <studio@lorisbukvic.graphics>',
             to: [email],
             subject: 'Thank you for your message',
-            text: `Hi ${name},\n\nThanks for reaching out! I've received your message and will get back to you as soon as possible.\n\nBest,\nLoris \n\n Here's a copy of your message:\n\n${message}`
+            text: `Hi ${name},\n\nThanks for reaching out! I've received your message and will get back to you as soon as possible.\n\nBest,\nLoris \n\nHere's a copy of your message:\n\n${message}`
         });
 
-        console.log("Email sent successfully:", data);
         return Response.json(data);
     } catch (error: any) {
         console.error("Server-side Catch Error:", error.message || error);

@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function WorksNav({ viewStyle, setViewStyle }: Props) {
-    const { setShouldShuffle } = useStore();
+    const setShouldShuffle = useStore((state) => state.setShouldShuffle);
     const lenis = useLenis();
 
     const [isAnimating, setIsAnimating] = useState(false);
@@ -52,13 +52,13 @@ export default function WorksNav({ viewStyle, setViewStyle }: Props) {
 
     useGSAP(() => {
         if (viewStyle === "freestyle") {
-             gsap.to("[data-gsap='nav-display-style']", {
-                        opacity: 0,
-                        pointerEvents: "none",
-                        delay: 0,
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
+            gsap.to("[data-gsap='nav-display-style']", {
+                opacity: 0,
+                pointerEvents: "none",
+                delay: 0,
+                duration: 0.4,
+                ease: "power2.out"
+            });
             gsap.to("[data-gsap='nav-folder-wrapper']", {
                 opacity: 1,
                 pointerEvents: "all",

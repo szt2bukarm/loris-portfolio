@@ -22,7 +22,7 @@ export default function WorksGridItem({
     slug,
     onSelect
 }: Props) {
-    const { isMobile } = useStore();
+    const isMobile = useStore((state) => state.isMobile);
 
     return (
         <div onClick={() => onSelect(slug)} data-gsap="grid-item" className="group relative h-[80vw] md:h-[35vw] lg:h-[24vw] 2xl:h-[19vw] w-auto rounded-[10px] flex flex-col justify-between p-[15px] cursor-pointer opacity-0" style={{ background: `url(${thumbnail})`, backgroundSize: "cover", backgroundPosition: "center" }}>

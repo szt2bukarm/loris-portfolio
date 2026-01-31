@@ -80,68 +80,70 @@ const ExperienceMedium = () => {
     const rows = useRef<HTMLDivElement[]>([])
 
     useGSAP(() => {
-        rows.current.forEach((row, i) => {
-            const splitTitle = new SplitText(
-                `[data-gsap='experience-title-${i}-medium']`,
-                { type: "lines", linesClass: "line" }
-            )
+        document.fonts.ready.then(() => {
+            rows.current.forEach((row, i) => {
+                const splitTitle = new SplitText(
+                    `[data-gsap='experience-title-${i}-medium']`,
+                    { type: "lines", linesClass: "line" }
+                )
 
-            const splitContent = new SplitText(
-                `[data-gsap='experience-content-${i}-medium']`,
-                { type: "lines", linesClass: "line" }
-            )
+                const splitContent = new SplitText(
+                    `[data-gsap='experience-content-${i}-medium']`,
+                    { type: "lines", linesClass: "line" }
+                )
 
-            const wrapLines = (lines: HTMLElement[]) => {
-                lines.forEach(line => {
-                    const wrapper = document.createElement("div")
-                    wrapper.style.overflow = "hidden"
-                    line.parentNode?.insertBefore(wrapper, line)
-                    wrapper.appendChild(line)
-                })
-            }
-
-            wrapLines(splitTitle.lines as HTMLElement[])
-            wrapLines(splitContent.lines as HTMLElement[])
-
-            gsap.set(
-                `[data-gsap='experience-title-${i}-medium'] .line,
-         [data-gsap='experience-content-${i}-medium'] .line`,
-                { yPercent: 130 }
-            )
-            gsap.set(row.querySelectorAll(".experience-client-logo"), { yPercent: 130 })
-
-            setTimeout(() => {
-                requestAnimationFrame(() => {
-                    ScrollTrigger.create({
-                        trigger: row,
-                        start: "top 80%",
-                        onEnter: () => {
-                            gsap.to(splitTitle.lines, {
-                                yPercent: 0,
-                                duration: 1.2,
-                                stagger: 0.1,
-                                ease: "out",
-                            })
-
-                            gsap.to(splitContent.lines, {
-                                yPercent: 0,
-                                duration: 1.2,
-                                stagger: 0.1,
-                                ease: "out",
-                            })
-
-                            gsap.to(row.querySelectorAll(".experience-client-logo"), {
-                                yPercent: 0,
-                                duration: 0.6,
-                                stagger: window.innerWidth < 640 ? 0.1 : 0,
-                                delay: 0.3,
-                                ease: "out",
-                            })
-                        },
+                const wrapLines = (lines: HTMLElement[]) => {
+                    lines.forEach(line => {
+                        const wrapper = document.createElement("div")
+                        wrapper.style.overflow = "hidden"
+                        line.parentNode?.insertBefore(wrapper, line)
+                        wrapper.appendChild(line)
                     })
-                })
-            }, 1);
-        })
+                }
+
+                wrapLines(splitTitle.lines as HTMLElement[])
+                wrapLines(splitContent.lines as HTMLElement[])
+
+                gsap.set(
+                    `[data-gsap='experience-title-${i}-medium'] .line,
+         [data-gsap='experience-content-${i}-medium'] .line`,
+                    { yPercent: 130 }
+                )
+                gsap.set(row.querySelectorAll(".experience-client-logo"), { yPercent: 130 })
+
+                setTimeout(() => {
+                    requestAnimationFrame(() => {
+                        ScrollTrigger.create({
+                            trigger: row,
+                            start: "top 80%",
+                            onEnter: () => {
+                                gsap.to(splitTitle.lines, {
+                                    yPercent: 0,
+                                    duration: 1.2,
+                                    stagger: 0.1,
+                                    ease: "out",
+                                })
+
+                                gsap.to(splitContent.lines, {
+                                    yPercent: 0,
+                                    duration: 1.2,
+                                    stagger: 0.1,
+                                    ease: "out",
+                                })
+
+                                gsap.to(row.querySelectorAll(".experience-client-logo"), {
+                                    yPercent: 0,
+                                    duration: 0.6,
+                                    stagger: window.innerWidth < 640 ? 0.1 : 0,
+                                    delay: 0.3,
+                                    ease: "out",
+                                })
+                            },
+                        })
+                    })
+                }, 1);
+            })
+        });
     })
 
     return (
@@ -202,64 +204,66 @@ const ExperienceLarge = () => {
     }, [])
 
     useGSAP(() => {
-        dataRows.current.forEach((row, i) => {
-            const splitTitle = new SplitText(
-                `[data-gsap='experience-title-${i}']`,
-                { type: "lines", linesClass: "line" }
-            )
+        document.fonts.ready.then(() => {
+            dataRows.current.forEach((row, i) => {
+                const splitTitle = new SplitText(
+                    `[data-gsap='experience-title-${i}']`,
+                    { type: "lines", linesClass: "line" }
+                )
 
-            const splitContent = new SplitText(
-                `[data-gsap='experience-content-${i}']`,
-                { type: "lines", linesClass: "line" }
-            )
+                const splitContent = new SplitText(
+                    `[data-gsap='experience-content-${i}']`,
+                    { type: "lines", linesClass: "line" }
+                )
 
-            const wrapLines = (lines: HTMLElement[]) => {
-                lines.forEach(line => {
-                    const wrapper = document.createElement("div")
-                    wrapper.style.overflow = "hidden"
-                    line.parentNode?.insertBefore(wrapper, line)
-                    wrapper.appendChild(line)
-                })
-            }
+                const wrapLines = (lines: HTMLElement[]) => {
+                    lines.forEach(line => {
+                        const wrapper = document.createElement("div")
+                        wrapper.style.overflow = "hidden"
+                        line.parentNode?.insertBefore(wrapper, line)
+                        wrapper.appendChild(line)
+                    })
+                }
 
-            wrapLines(splitTitle.lines as HTMLElement[])
-            wrapLines(splitContent.lines as HTMLElement[])
+                wrapLines(splitTitle.lines as HTMLElement[])
+                wrapLines(splitContent.lines as HTMLElement[])
 
-            gsap.set(
-                `[data-gsap='experience-title-${i}'] .line,
+                gsap.set(
+                    `[data-gsap='experience-title-${i}'] .line,
          [data-gsap='experience-content-${i}'] .line`,
-                { yPercent: 130 }
-            )
-            gsap.set(row.querySelectorAll(".experience-client-logo"), { yPercent: 130 })
+                    { yPercent: 130 }
+                )
+                gsap.set(row.querySelectorAll(".experience-client-logo"), { yPercent: 130 })
 
-            ScrollTrigger.create({
-                trigger: row,
-                start: "top-=300 50%",
-                onEnter: () => {
-                    gsap.to(splitTitle.lines, {
-                        yPercent: 0,
-                        duration: 1.2,
-                        stagger: 0.1,
-                        ease: "out",
-                    })
+                ScrollTrigger.create({
+                    trigger: row,
+                    start: "top-=300 50%",
+                    onEnter: () => {
+                        gsap.to(splitTitle.lines, {
+                            yPercent: 0,
+                            duration: 1.2,
+                            stagger: 0.1,
+                            ease: "out",
+                        })
 
-                    gsap.to(splitContent.lines, {
-                        yPercent: 0,
-                        duration: 1.2,
-                        stagger: 0.1,
-                        ease: "out",
-                    })
+                        gsap.to(splitContent.lines, {
+                            yPercent: 0,
+                            duration: 1.2,
+                            stagger: 0.1,
+                            ease: "out",
+                        })
 
-                    gsap.to(row.querySelectorAll(".experience-client-logo"), {
-                        yPercent: 0,
-                        duration: 0.6,
-                        stagger: 0,
-                        delay: 0.3,
-                        ease: "out",
-                    })
-                },
+                        gsap.to(row.querySelectorAll(".experience-client-logo"), {
+                            yPercent: 0,
+                            duration: 0.6,
+                            stagger: 0,
+                            delay: 0.3,
+                            ease: "out",
+                        })
+                    },
+                })
             })
-        })
+        });
     })
 
     return (

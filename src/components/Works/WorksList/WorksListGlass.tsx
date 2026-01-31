@@ -56,7 +56,7 @@ const PROJECTS = [...projects].sort((a, b) => a.category[0].category.localeCompa
 }));
 
 export default function WorksListGlass({ hoveredIndex, hasPlayed, shouldScale, onReady, paused }: { hoveredIndex?: number | null, hasPlayed: boolean, shouldScale?: boolean, onReady?: () => void, paused?: boolean }) {
-    const { isMobile } = useStore();
+    const isMobile = useStore((state) => state.isMobile);
     const containerRef = useRef<HTMLDivElement>(null);
     const sceneRef = useRef<THREE.Scene | null>(null);
     const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
@@ -496,15 +496,50 @@ export default function WorksListGlass({ hoveredIndex, hasPlayed, shouldScale, o
         return () => {
             window.removeEventListener('resize', onResize);
             cancelAnimationFrame(frameId);
-            renderer.dispose();
+
+            // Dispose post-processing
+            composer.dispose();
+            renderTarget.dispose();
+            pmremGenerator.dispose();
+
+            // Dispose specific resources
+            vignetteTexture.dispose();
             glassGeom.dispose();
             planeGeo.dispose();
+
+            // Dispose gltf loader textures
             blades.forEach(b => {
-                b.faceMat.dispose();
-                b.edgeMat.dispose();
-                b.photoMatF.dispose();
-                b.photoMatB.dispose();
+                if (b.faceMat) b.faceMat.dispose();
+                if (b.edgeMat) b.edgeMat.dispose();
+                if (b.photoMatF) {
+                    if (b.photoMatF.map) b.photoMatF.map.dispose();
+                    b.photoMatF.dispose();
+                }
+                if (b.photoMatB) {
+                    if (b.photoMatB.map) b.photoMatB.map.dispose();
+                    b.photoMatB.dispose();
+                }
             });
+
+            // Traverse and cleanup scene
+            scene.traverse((object: any) => {
+                if (object.isMesh) {
+                    if (object.geometry) object.geometry.dispose();
+                    if (object.material) {
+                        if (Array.isArray(object.material)) {
+                            object.material.forEach((m: any) => m.dispose());
+                        } else {
+                            object.material.dispose();
+                        }
+                    }
+                }
+            });
+            scene.clear();
+
+            // Final renderer cleanup
+            renderer.dispose();
+            renderer.forceContextLoss();
+
             if (containerRef.current) containerRef.current.innerHTML = '';
         };
     }, []);

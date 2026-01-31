@@ -2,12 +2,8 @@
 import { useEffect, useRef } from "react";
 
 const LOOP_MESSAGES = [
-    "Check my works out?...",
-    "Send a message? 👀",
     "👀",
-    "There's more to see",
-    "For your eyes only",
-    "Let's work together!"
+    "There's more to see here",
 ];
 
 export default function TabTitleLooper() {

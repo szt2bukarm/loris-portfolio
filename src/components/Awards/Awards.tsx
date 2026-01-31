@@ -237,126 +237,128 @@ export default function Awards() {
     }
 
     useGSAP(() => {
-        const splitText = new SplitText("[data-gsap='award-text']", {
-            type: "lines",
-            linesClass: "line",
-            mask: "lines",
-        });
-
-        const splitFrom = new SplitText("[data-gsap='award-from']", {
-            type: "lines",
-            linesClass: "line",
-            mask: "lines",
-        });
-
-        const splitTextMobile = new SplitText("[data-gsap='award-text-mobile']", {
-            type: "lines",
-            linesClass: "line",
-            mask: "lines",
-        });
-
-        const splitFromMobile = new SplitText("[data-gsap='award-from-mobile']", {
-            type: "lines",
-            linesClass: "line",
-            mask: "lines",
-        });
-
-        const wrapLines = (lines: HTMLElement[]) => {
-            lines.forEach((line) => {
-                const wrapper = document.createElement("div");
-                wrapper.style.overflow = "hidden";
-                line.parentNode?.insertBefore(wrapper, line);
-                wrapper.appendChild(line);
+        document.fonts.ready.then(() => {
+            const splitText = new SplitText("[data-gsap='award-text']", {
+                type: "lines",
+                linesClass: "line",
+                mask: "lines",
             });
-        };
 
-        wrapLines(splitText.lines as HTMLElement[]);
-        wrapLines(splitFrom.lines as HTMLElement[]);
-        wrapLines(splitTextMobile.lines as HTMLElement[]);
-        wrapLines(splitFromMobile.lines as HTMLElement[]);
-        gsap.set("[data-gsap='award-icon'], [data-gsap='award-icon-mobile']", {
-            opacity: 0,
-        })
-        gsap.set("[data-gsap='award-text'] .line, [data-gsap='award-from'] .line, [data-gsap='award-text-mobile'] .line, [data-gsap='award-from-mobile'] .line", {
-            yPercent: 100,
-        })
-        ScrollTrigger.create({
-            trigger: containerRef.current,
-            start: "top+=200 80%",
-            once: true,
-            onEnter: () => {
-                gsap.fromTo(
-                    "[data-gsap='award-icon']",
-                    { opacity: 0, scale: 0.5 },
-                    {
-                        opacity: 1,
-                        scale: 1,
-                        stagger: 0.2,
-                        duration: 1.2,
-                        ease: "back.out(2)",
-                    }
-                );
+            const splitFrom = new SplitText("[data-gsap='award-from']", {
+                type: "lines",
+                linesClass: "line",
+                mask: "lines",
+            });
 
-                gsap.fromTo(
-                    "[data-gsap='award-text'] .line",
-                    { yPercent: 100, opacity: 0 },
-                    {
-                        yPercent: 0,
-                        opacity: 1,
-                        stagger: 0.1,
-                        duration: 1.2,
-                        ease: "out",
-                    }
-                );
+            const splitTextMobile = new SplitText("[data-gsap='award-text-mobile']", {
+                type: "lines",
+                linesClass: "line",
+                mask: "lines",
+            });
 
-                gsap.fromTo(
-                    "[data-gsap='award-from'] .line",
-                    { yPercent: 100, opacity: 0 },
-                    {
-                        yPercent: 0,
-                        opacity: 1,
-                        stagger: 0.1,
-                        duration: 1.2,
-                        ease: "out",
-                    }
-                );
+            const splitFromMobile = new SplitText("[data-gsap='award-from-mobile']", {
+                type: "lines",
+                linesClass: "line",
+                mask: "lines",
+            });
 
-                gsap.fromTo(
-                    "[data-gsap='award-icon-mobile']",
-                    { opacity: 0, scale: 0.5 },
-                    {
-                        opacity: 1,
-                        scale: 1,
-                        stagger: 0.2,
-                        duration: 1.2,
-                        ease: "back.out(2)",
-                    }
-                );
+            const wrapLines = (lines: HTMLElement[]) => {
+                lines.forEach((line) => {
+                    const wrapper = document.createElement("div");
+                    wrapper.style.overflow = "hidden";
+                    line.parentNode?.insertBefore(wrapper, line);
+                    wrapper.appendChild(line);
+                });
+            };
 
-                gsap.fromTo(
-                    "[data-gsap='award-text-mobile'] .line",
-                    { yPercent: 100, opacity: 0 },
-                    {
-                        yPercent: 0,
-                        opacity: 1,
-                        stagger: 0.1,
-                        duration: 1.2,
-                        ease: "out",
-                    }
-                );
+            wrapLines(splitText.lines as HTMLElement[]);
+            wrapLines(splitFrom.lines as HTMLElement[]);
+            wrapLines(splitTextMobile.lines as HTMLElement[]);
+            wrapLines(splitFromMobile.lines as HTMLElement[]);
+            gsap.set("[data-gsap='award-icon'], [data-gsap='award-icon-mobile']", {
+                opacity: 0,
+            })
+            gsap.set("[data-gsap='award-text'] .line, [data-gsap='award-from'] .line, [data-gsap='award-text-mobile'] .line, [data-gsap='award-from-mobile'] .line", {
+                yPercent: 100,
+            })
+            ScrollTrigger.create({
+                trigger: containerRef.current,
+                start: "top+=200 80%",
+                once: true,
+                onEnter: () => {
+                    gsap.fromTo(
+                        "[data-gsap='award-icon']",
+                        { opacity: 0, scale: 0.5 },
+                        {
+                            opacity: 1,
+                            scale: 1,
+                            stagger: 0.2,
+                            duration: 1.2,
+                            ease: "back.out(2)",
+                        }
+                    );
 
-                gsap.fromTo(
-                    "[data-gsap='award-from-mobile'] .line",
-                    { yPercent: 100, opacity: 0 },
-                    {
-                        yPercent: 0,
-                        opacity: 1,
-                        stagger: 0.1,
-                        duration: 1.2,
-                        ease: "out",
-                    }
-                );
-            },
+                    gsap.fromTo(
+                        "[data-gsap='award-text'] .line",
+                        { yPercent: 100, opacity: 0 },
+                        {
+                            yPercent: 0,
+                            opacity: 1,
+                            stagger: 0.1,
+                            duration: 1.2,
+                            ease: "out",
+                        }
+                    );
+
+                    gsap.fromTo(
+                        "[data-gsap='award-from'] .line",
+                        { yPercent: 100, opacity: 0 },
+                        {
+                            yPercent: 0,
+                            opacity: 1,
+                            stagger: 0.1,
+                            duration: 1.2,
+                            ease: "out",
+                        }
+                    );
+
+                    gsap.fromTo(
+                        "[data-gsap='award-icon-mobile']",
+                        { opacity: 0, scale: 0.5 },
+                        {
+                            opacity: 1,
+                            scale: 1,
+                            stagger: 0.2,
+                            duration: 1.2,
+                            ease: "back.out(2)",
+                        }
+                    );
+
+                    gsap.fromTo(
+                        "[data-gsap='award-text-mobile'] .line",
+                        { yPercent: 100, opacity: 0 },
+                        {
+                            yPercent: 0,
+                            opacity: 1,
+                            stagger: 0.1,
+                            duration: 1.2,
+                            ease: "out",
+                        }
+                    );
+
+                    gsap.fromTo(
+                        "[data-gsap='award-from-mobile'] .line",
+                        { yPercent: 100, opacity: 0 },
+                        {
+                            yPercent: 0,
+                            opacity: 1,
+                            stagger: 0.1,
+                            duration: 1.2,
+                            ease: "out",
+                        }
+                    );
+                },
+            });
         });
     }, { scope: containerRef });
 

@@ -13,7 +13,7 @@ interface PhysicsKeychainProps {
 }
 
 export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
-    const { isMobile } = useStore();
+    const isMobile = useStore((state) => state.isMobile);
     const isMobileRef = useRef(isMobile);
 
     useEffect(() => {
@@ -599,12 +599,46 @@ export default function PhysicsKeychain({ modelPath }: PhysicsKeychainProps) {
                 rendererRef.current.domElement.removeEventListener('mousemove', handleMouseMove);
                 rendererRef.current.domElement.removeEventListener('pointerdown', handlePointerDown as any);
             }
+
+            // Dispose references
+            if (chromeMaterialRef.current) {
+                chromeMaterialRef.current.dispose();
+            }
+
+            // Traverse and dispose everything in the scene
+            if (sceneRef.current) {
+                sceneRef.current.traverse((object: any) => {
+                    if (object.isMesh) {
+                        if (object.geometry) object.geometry.dispose();
+                        if (object.material) {
+                            if (Array.isArray(object.material)) {
+                                object.material.forEach((m: any) => m.dispose());
+                            } else {
+                                object.material.dispose();
+                            }
+                        }
+                    }
+                });
+                sceneRef.current.clear();
+            }
+
             if (rendererRef.current) {
                 rendererRef.current.dispose();
+                rendererRef.current.forceContextLoss();
             }
+
             if (containerRef.current && rendererRef.current) {
-                containerRef.current.removeChild(rendererRef.current.domElement);
+                // Check if child actually exists before removing
+                if (containerRef.current.contains(rendererRef.current.domElement)) {
+                    containerRef.current.removeChild(rendererRef.current.domElement);
+                }
             }
+
+            // Clear refs
+            sceneRef.current = null;
+            rendererRef.current = null;
+            cameraRef.current = null;
+            chromeMaterialRef.current = null;
         };
     }, []);
 

@@ -8,7 +8,7 @@ import { useStore } from "../../app/useStore";
 import { useLenis } from "@studio-freight/react-lenis"
 
 export default function ContactForm({ onClose }: { onClose: () => void }) {
-    const { isMobile } = useStore();
+    const isMobile = useStore((state) => state.isMobile);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -109,7 +109,6 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
 
 
     useGSAP(() => {
-        if (isMobile) return;
         // icon bounce entrance
         gsap.set("[data-gsap='contact-personicon']", {
             scale: 0,

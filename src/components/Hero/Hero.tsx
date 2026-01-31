@@ -1,12 +1,12 @@
 'use client';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import UnicornScene from "unicornstudio-react";
 import PhysicsKeychain from "../PhysicsKeychain";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useStore } from "@/app/useStore";
+
 gsap.registerPlugin(SplitText);
 
 export default function Hero() {
@@ -84,60 +84,68 @@ export default function Hero() {
             targetW *= heightScale;
             targetH *= heightScale;
 
-            setContainerSize({ w: Math.round(targetW), h: Math.round(targetH) });
+            const newW = Math.round(targetW);
+            const newH = Math.round(targetH);
+
+            setContainerSize(prev => {
+                if (prev && prev.w === newW && prev.h === newH) return prev;
+                return { w: newW, h: newH };
+            });
         }
     }
 
     const splitHeroText = () => {
         if (titleRef.current && subtitleRef.current) {
-            // Split title
-            if (splitRef.current) {
-                splitRef.current.revert();
-            }
-
-            const splitTitle = new SplitText(titleRef.current, {
-                type: "lines",
-            });
-            splitRef.current = splitTitle;
-
-            // Wrap each line in a mask div
-            splitTitle.lines.forEach((line: HTMLElement) => {
-                const wrapper = document.createElement("div");
-                wrapper.style.overflow = "hidden";
-                if (line.parentNode) {
-                    line.parentNode.insertBefore(wrapper, line);
-                    wrapper.appendChild(line);
+            document.fonts.ready.then(() => {
+                // Split title
+                if (splitRef.current) {
+                    splitRef.current.revert();
                 }
-            });
 
-            // Animate title lines
-            gsap.fromTo(splitTitle.lines,
-                {
-                    yPercent: 100,
-                },
-                {
-                    yPercent: 0,
-                    ease: "power4.out",
-                    stagger: 0.09,
-                    duration: 1.2,
-                    onStart: () => {
-                        gsap.set(titleRef.current, {
-                            opacity: 1,
-                        })
+                const splitTitle = new SplitText(titleRef.current, {
+                    type: "lines",
+                });
+                splitRef.current = splitTitle;
+
+                // Wrap each line in a mask div
+                splitTitle.lines.forEach((line: HTMLElement) => {
+                    const wrapper = document.createElement("div");
+                    wrapper.style.overflow = "hidden";
+                    if (line.parentNode) {
+                        line.parentNode.insertBefore(wrapper, line);
+                        wrapper.appendChild(line);
                     }
-                })
-            gsap.fromTo(subtitleRef.current, {
-                duration: 1,
-                opacity: 0,
-                y: 20,
-            }, {
-                opacity: 1,
-                y: 0,
-                ease: "power3.out",
+                });
+
+                // Animate title lines
+                gsap.fromTo(splitTitle.lines,
+                    {
+                        yPercent: 100,
+                    },
+                    {
+                        yPercent: 0,
+                        ease: "power4.out",
+                        stagger: 0.09,
+                        duration: 1.2,
+                        onStart: () => {
+                            gsap.set(titleRef.current, {
+                                opacity: 1,
+                            })
+                        }
+                    })
+                gsap.fromTo(subtitleRef.current, {
+                    duration: 1,
+                    opacity: 0,
+                    y: 20,
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    ease: "power3.out",
+                });
             });
 
             return () => {
-                splitTitle.revert();
+                if (splitRef.current) splitRef.current.revert();
             };
         }
     }
@@ -147,7 +155,7 @@ export default function Hero() {
         lastBreakpointRef.current = getBreakpoint(window.innerWidth);
         lastHeightBreakpointRef.current = getHeightBreakpoint(window.innerHeight);
 
-        updateDimensions(); 
+        updateDimensions();
 
         // Run animation once on mount
         setTimeout(() => {
@@ -240,6 +248,18 @@ export default function Hero() {
     }, [])
 
 
+    const dpi = typeof window !== 'undefined' ? (window.innerWidth > 1280 ? 0.5 : window.innerWidth > 640 ? 0.75 : 1) : 1;
+
+    // Memoize the scene to prevent re-initialization on every render (e.g. scrollbar toggle)
+    const unicornScene = useMemo(() => (
+        <UnicornScene
+            jsonFilePath="/herogenyo.json"
+            width="100%"
+            height="100%"
+            dpi={dpi}
+        />
+    ), [dpi]);
+
     return (
         <div ref={heroRef} className="w-screen h-[100dvh] relative overflow-hidden">
 
@@ -253,7 +273,7 @@ export default function Hero() {
                            sm:translate-y-[-55%]
                            "
             >
-                <UnicornScene jsonFilePath="/herogenyo.json" width="100%" height="100%" dpi={window.innerWidth > 1280 ? 0.5 : window.innerWidth > 640 ? 0.75 : 1} />
+                {unicornScene}
             </div>
 
 

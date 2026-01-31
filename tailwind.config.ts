@@ -15,9 +15,9 @@ const config: Config = {
         white: "#F3F3F3"
       },
       fontFamily: {
-        intranet: "IntraNet",
-        ppregular: "PPMori-Regular",
-        ppsemibold: "PPMori-SemiBold",
+        intranet: "var(--font-intranet)",
+        ppregular: "var(--font-ppregular)",
+        ppsemibold: "var(--font-ppsemibold)",
       },
       fontSize: {
         h1: "35px",

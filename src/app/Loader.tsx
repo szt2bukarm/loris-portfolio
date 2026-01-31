@@ -35,7 +35,8 @@ const assets = [
 
 
 export default function Loader() {
-  const { setLoaded, loaded } = useStore();
+  const loaded = useStore((state) => state.loaded);
+  const setLoaded = useStore((state) => state.setLoaded);
   const [progress, setProgress] = useState(0);
   const progressRef = useRef(0);
   const [hideLoader, setHideLoader] = useState(false);
@@ -86,8 +87,8 @@ export default function Loader() {
   useEffect(() => {
     const loadAll = async () => {
       try {
-          await preloadAssets(assets, 100);
-          setTimeout(() => setLoaded(true), 100);
+        await preloadAssets(assets, 100);
+        setTimeout(() => setLoaded(true), 100);
 
       } catch (e) {
         console.error("Asset preload error:", e);
@@ -133,7 +134,7 @@ export default function Loader() {
       className="pointer-events-none fixed top-0 right-0 w-screen h-[100dvh] z-[9999] flex items-center justify-center"
     >
       <img src="/icons/loader.svg" className='fixed top-[40px] lg:top-[50px]  right-[10px] sm:right-[20px] lg:right-[50px] loader ' alt="Loader" />
-    <div data-gsap="loader-bg" className='w-screen h-screen bg-black z-[9999] fixed top-0 right-0'/>
+      <div data-gsap="loader-bg" className='w-screen h-screen bg-black z-[9999] fixed top-0 right-0' />
     </div>
   );
 }

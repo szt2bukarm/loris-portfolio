@@ -52,6 +52,21 @@ export const metadata: Metadata = {
   }
 };
 
+const intranet = localFont({
+  src: "../../public/fonts/IntraNet.otf",
+  variable: "--font-intranet",
+});
+
+const ppRegular = localFont({
+  src: "../../public/fonts/PPMori-Regular.otf",
+  variable: "--font-ppregular",
+});
+
+const ppSemiBold = localFont({
+  src: "../../public/fonts/PPMori-SemiBold.otf",
+  variable: "--font-ppsemibold",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -59,31 +74,10 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en">
+      <html lang="en" className={`${intranet.variable} ${ppRegular.variable} ${ppSemiBold.variable}`}>
         <head>
           <script
             dangerouslySetInnerHTML={{ __html: `history.scrollRestoration = "manual"` }}
-          />
-          <link
-            rel="preload"
-            href="/fonts/IntraNet.otf"
-            as="font"
-            type="font/otf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/PPMori-Regular.otf"
-            as="font"
-            type="font/otf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/PPMori-SemiBold.otf"
-            as="font"
-            type="font/otf"
-            crossOrigin="anonymous"
           />
         </head>
         <body>

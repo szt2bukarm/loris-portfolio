@@ -28,7 +28,9 @@ export default function WorksFreestyleView({ onSelect, active }: Props) {
         }
     }, [active]);
 
-    const { isMobile, shouldShuffle, setShouldShuffle } = useStore();
+    const isMobile = useStore((state) => state.isMobile);
+    const shouldShuffle = useStore((state) => state.shouldShuffle);
+    const setShouldShuffle = useStore((state) => state.setShouldShuffle);
     const [hovered, setHovered] = useState(false);
     const [loadedIndices, setLoadedIndices] = useState<Set<number>>(new Set());
     const [nextRevealIndex, setNextRevealIndex] = useState(0);

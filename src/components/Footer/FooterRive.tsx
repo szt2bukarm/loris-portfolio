@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 
 export function FooterRive({ className }: { className?: string }) {
 
-  const { setOpenContact } = useStore();
+  const setOpenContact = useStore((state) => state.setOpenContact);
 
   const { rive, setCanvasRef, setContainerRef } = useRive({
     src: '/instafooter.riv',

@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactCTA() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const { setOpenContact } = useStore();
+    const setOpenContact = useStore((state) => state.setOpenContact);
 
     const [windowWidth, setWindowWidth] = useState(0);
 

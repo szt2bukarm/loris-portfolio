@@ -9,7 +9,8 @@ import { ReactLenis } from "@studio-freight/react-lenis";
 import ContactHandsake from "./ContactHandsake";
 
 export default function ContactWrapper() {
-    const { openContact, setOpenContact } = useStore();
+    const openContact = useStore((state) => state.openContact);
+    const setOpenContact = useStore((state) => state.setOpenContact);
 
     useGSAP(() => {
         if (!openContact) return;
@@ -37,12 +38,14 @@ export default function ContactWrapper() {
             y: "100%",
             duration: 0.3,
             ease: "power2.inOut",
+            overwrite: true
         })
         gsap.to("[data-gsap='contact-wrapper']", {
             opacity: 0,
             duration: 0.3,
             delay: 0.15,
             ease: "linear",
+            overwrite: true,
             onComplete: () => setOpenContact(false)
         })
     }

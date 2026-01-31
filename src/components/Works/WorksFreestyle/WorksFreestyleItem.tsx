@@ -22,7 +22,7 @@ interface Props {
 }
 
 export default function WorksFreestyleItem({ title, description, image, category, year, primaryColor, setHovered, slug, onSelect, onInternalLoad, shouldReveal }: Props) {
-    const { isMobile } = useStore();
+    const isMobile = useStore((state) => state.isMobile);
     const itemRef = useRef<HTMLDivElement>(null);
     const hoverRef = useRef<HTMLDivElement[]>([]);
     const [position, setPosition] = useState<"left" | "right" | "bottom" | "top">("right");
@@ -62,7 +62,6 @@ export default function WorksFreestyleItem({ title, description, image, category
         if (isMobile) return;
         checkPosition();
         setHovered(true);
-        console.log(hoverRef.current[1].children)
         gsap.set(hoverRef.current[1].children, {
             filter: "brightness(20)",
         })

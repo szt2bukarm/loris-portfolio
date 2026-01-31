@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 
 export function WorksSocials({ progressValue, behance, className, onBack }: { progressValue: number, behance?: string | null, className?: string, onBack?: () => void }) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const { setOpenContact } = useStore();
+  const setOpenContact = useStore((state) => state.setOpenContact);
 
   const { rive, setCanvasRef, setContainerRef } = useRive({
     src: behance ? "/works_rive.riv" : "/works_rive_nobehance.riv",
@@ -40,7 +40,6 @@ export function WorksSocials({ progressValue, behance, className, onBack }: { pr
       };
 
       const onRiveEvent = (event: any) => {
-        console.log(event.data.name)
         if (event.data.name === "backClicked") {
           if (onBack) {
             onBack();

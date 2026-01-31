@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useStore } from "./useStore";
 
 export default function MobileTest() {
-  const { setIsMobile } = useStore();
+  const setIsMobile = useStore((state) => state.setIsMobile);
 
   useEffect(() => {
     const checkIfMobile = () => {
