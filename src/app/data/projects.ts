@@ -115,7 +115,7 @@ const projects = [
         {
         title: "DAYDREAM PLAYER",
         slug: "daydreamplayer",
-        behance: "https://www.behance.net/gallery/185546971/AUGHTSSPECTIVE-MAGAZINE-DESIGN",
+        behance: "https://www.behance.net/gallery/231231683/DAYDREAM-PLAYER",
         website: null,
         description: "Merging early 2000s charm with contemporary streaming technology, Daydream Player is a modern tactile music device.<br><br>As a solo project, I executed the entire design process from start to finish: defining the brand identity, engineering the physical product concept, and crafting the UI/UX and packaging.",
         category: [

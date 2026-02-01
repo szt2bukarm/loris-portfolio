@@ -10,4 +10,4 @@ export default function CategoryTag({icon, category}: Props) {
             <p className="text-brightgray font-ppsemibold text-sm leading-[14px]">{category}</p>
         </div>
     )
-}
+} 

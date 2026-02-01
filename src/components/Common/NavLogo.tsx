@@ -29,7 +29,7 @@ export default function NavLogo() {
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b-[2px] border-l-[2px] border-[#FBFBFB80] rounded-bl-[10px]"></div>
                 <div className="absolute bottom-0 right-0 w-4 h-4 border-b-[2px] border-r-[2px] border-[#FBFBFB80] rounded-br-[10px]"></div>
 
-                <span className="text-sm font-ppregular">Contact</span>
+                <span className="text-sm font-ppsemibold">Contact</span>
             </button>
         </>
     )

@@ -69,7 +69,7 @@ export default function WorksGridView({ onSelect, activeCategory, active }: Prop
     }, [activeCategory, active]);
 
     return (
-        <div data-gsap="works-grid" className="relative  w-full h-full ">
+        <div data-gsap="works-grid" className="relative  w-full h-full overflow-x-hidden">
             <div data-gsap="works-grid-top" className="fixed top-0 left-0 w-screen h-[25vh] bg-gradient-to-b from-black to-transparent z-[2] pointer-events-none"></div>
             <div data-gsap="works-grid-bottom" className="fixed bottom-0 left-0 w-screen h-[25vh] bg-gradient-to-t from-black to-transparent z-[2] pointer-events-none"></div>
 
