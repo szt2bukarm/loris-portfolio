@@ -130,7 +130,7 @@ export default function page({ params }: { params: { slug?: string[] } }) {
             </div>
 
             {/* Freestyle View - Persisted */}
-            <div data-gsap="works-freestyle-wrapper" className={`w-full h-full pt-[150px] sm:pt-[170px] lg:pt-[200px] px-[20px] lg:px-[50px] ${viewStyle === "freestyle" ? "block opacity-100" : "hidden opacity-0"}`}>
+            <div data-gsap="works-freestyle-wrapper" className={`w-full h-full pt-[150px] sm:pt-[170px] lg:pt-[200px] px-[10px] sm:px-[20px] lg:px-[50px] ${viewStyle === "freestyle" ? "block opacity-100" : "hidden opacity-0"}`}>
                 <WorksFreestyleView onSelect={handleProjectSelect} active={viewStyle === "freestyle"} />
             </div>
 
