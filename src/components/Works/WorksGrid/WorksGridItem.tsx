@@ -30,7 +30,7 @@ export default function WorksGridItem({
             <div className={`z-0 absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black via-transparent to-black transition-all duration-150 rounded-[10px] ${isMobile ? "opacity-50" : "group-hover:opacity-35 opacity-0"}`}></div>
 
             {/* icons */}
-            <div className={`z-[1] flex items-center transition-all duration-150 ${isMobile ? "opacity-100" : "group-hover:opacity-100 opacity-0"}`}>
+            <div className={`z-[1] flex items-center transition-all duration-150 ${isMobile ? "opacity-100" : "group-hover:opacity-100 opacity-100"}`}>
                 {category.map((cat, index) => (
 
                     <WorksGridCategoryIcon key={index} icon={cat.icon} theme={theme} category={cat.category} index={index} isMobile={isMobile }/>
