@@ -1,15 +1,31 @@
 import { Resend } from 'resend';
-
-export async function GET() {
-    return Response.json({ status: "API is active. Use POST to send messages." });
-}
+import { Redis } from '@upstash/redis';
+import { Ratelimit } from '@upstash/ratelimit';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Create a new Ratelimit instance
+const ratelimit = new Ratelimit({
+    redis: Redis.fromEnv(),
+    limiter: Ratelimit.slidingWindow(2, "24 h"),
+});
 
 export async function POST(request: Request) {
     if (!process.env.RESEND_API_KEY) {
         console.error("Missing RESEND_API_KEY");
         return Response.json({ error: "Missing RESEND_API_KEY" }, { status: 500 });
+    }
+
+    // Rate Limiting Logic
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
+
+    const { success } = await ratelimit.limit(ip);
+
+    if (!success) {
+        return Response.json(
+            { error: "Daily message limit reached. Please send a message tomorrow, or contact me directly through my email." },
+            { status: 429 }
+        );
     }
 
     const { name, email, message } = await request.json();

@@ -18,6 +18,8 @@
     "@studio-freight/react-lenis": "^0.0.47",
     "@types/cannon": "^0.1.13",
     "@types/three": "^0.182.0",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.36.1",
     "@vercel/analytics": "^1.6.1",
     "cannon": "^0.6.2",
     "cannon-es": "^0.20.0",

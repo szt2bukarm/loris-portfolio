@@ -75,6 +75,7 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
             if (res.ok) {
                 setStatus("success");
                 lenis?.scrollTo(0);
+
                 gsap.to('[data-gsap="contact-feedback-wrapper"]', {
                     opacity: 0,
                     duration: 0.15,
@@ -97,8 +98,14 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
             } else {
                 console.error("Submission error:", data);
                 setStatus("error");
-                const errorMsg = "Something went wrong. Please try again later.";
-                setErrorMessage(errorMsg);
+
+                if (res.status === 429) {
+                    setErrorMessage(data.error || "Daily message limit reached. Please send a message tomorrow, or contact me directly through my email.");
+                    alert("Daily message limit reached. Please send a message tomorrow, or contact me directly through my email.");
+                } else {
+                    setErrorMessage("Something went wrong. Please try again later.");
+                    alert("Something went wrong. Please try again later.");
+                }
             }
         } catch (error) {
             console.error("Network error:", error);
@@ -229,13 +236,13 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
 
                         <div className="min-w-[340px] flex items-center justify-center">
                             <a href="mailto:studio@lorisbukvic.graphics" className="relative inline-block px-6 py-4 hover:px-8 transition-all duration-150 text-white group -mt-4 [@media(max-height:950px)]:mt-0">
-                            <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FBFBFB80] rounded-tl-[14px]"></div>
-                            <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#FBFBFB80] rounded-tr-[14px]"></div>
-                            <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#FBFBFB80] rounded-bl-[14px]"></div>
-                            <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#FBFBFB80] rounded-br-[14px]"></div>
+                                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FBFBFB80] rounded-tl-[14px]"></div>
+                                <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#FBFBFB80] rounded-tr-[14px]"></div>
+                                <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#FBFBFB80] rounded-bl-[14px]"></div>
+                                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#FBFBFB80] rounded-br-[14px]"></div>
 
-                            <span className="text-sm font-ppregular">Send email to studio@lorisbukvic.graphics</span>
-                        </a>
+                                <span className="text-sm font-ppregular">Send email to studio@lorisbukvic.graphics</span>
+                            </a>
                         </div>
                     </div>
                 </form>

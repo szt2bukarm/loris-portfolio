@@ -19,7 +19,10 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.code === "Space") {
+            const target = e.target as HTMLElement;
+            const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable;
+
+            if (e.code === "Space" && !isInput) {
                 e.preventDefault();
             }
         };

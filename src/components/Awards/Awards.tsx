@@ -283,7 +283,7 @@ export default function Awards() {
                 yPercent: 100,
             })
             setTimeout(() => {
-                            ScrollTrigger.create({
+                ScrollTrigger.create({
                 trigger: containerRef.current,
                 start: "top+=200 80%",
                 once: true,
