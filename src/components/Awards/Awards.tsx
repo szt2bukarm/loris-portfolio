@@ -49,7 +49,7 @@ const AwardRow = ({ icon, text, from, link, onMouseEnter }: { icon: string; text
     return (
         <div className="hidden sm:flex items-center w-full opacity-50 hover:opacity-100 duration-150 transition-opacity cursor-pointer" onClick={() => window.open(link, "_blank", "noopener noreferrer")} onMouseEnter={onMouseEnter}>
             <div className="min-w-[70px] h-full">
-                <img data-gsap="award-icon" src={icon} className="h-full" alt={`${from} logo`} />
+                <img data-gsap="award-icon" src={icon} className="h-full opacity-0" alt={`${from} logo`} />
             </div>
             <p data-gsap="award-text" className="text-md text-brightgray font-ppsemibold">{text}</p>
             <p data-gsap="award-from" className="text-md text-brightgray font-ppsemibold ml-auto uppercase">{from}</p>
@@ -237,7 +237,8 @@ export default function Awards() {
     }
 
     useGSAP(() => {
-        document.fonts.ready.then(() => {
+        const ctx = gsap.context(() => {
+            document.fonts.ready.then(() => {
             const splitText = new SplitText("[data-gsap='award-text']", {
                 type: "lines",
                 linesClass: "line",
@@ -281,7 +282,8 @@ export default function Awards() {
             gsap.set("[data-gsap='award-text'] .line, [data-gsap='award-from'] .line, [data-gsap='award-text-mobile'] .line, [data-gsap='award-from-mobile'] .line", {
                 yPercent: 100,
             })
-            ScrollTrigger.create({
+            setTimeout(() => {
+                            ScrollTrigger.create({
                 trigger: containerRef.current,
                 start: "top+=200 80%",
                 once: true,
@@ -295,6 +297,7 @@ export default function Awards() {
                             stagger: 0.2,
                             duration: 1.2,
                             ease: "back.out(2)",
+                            immediateRender: false,
                         }
                     );
 
@@ -307,6 +310,7 @@ export default function Awards() {
                             stagger: 0.1,
                             duration: 1.2,
                             ease: "out",
+                            immediateRender: false,
                         }
                     );
 
@@ -319,6 +323,7 @@ export default function Awards() {
                             stagger: 0.1,
                             duration: 1.2,
                             ease: "out",
+                            immediateRender: false,
                         }
                     );
 
@@ -331,6 +336,7 @@ export default function Awards() {
                             stagger: 0.2,
                             duration: 1.2,
                             ease: "back.out(2)",
+                            immediateRender: false,
                         }
                     );
 
@@ -343,6 +349,7 @@ export default function Awards() {
                             stagger: 0.1,
                             duration: 1.2,
                             ease: "out",
+                            immediateRender: false,
                         }
                     );
 
@@ -355,12 +362,19 @@ export default function Awards() {
                             stagger: 0.1,
                             duration: 1.2,
                             ease: "out",
+                            immediateRender: false,
                         }
                     );
                 },
             });
+            }, 200);
         });
-    }, { scope: containerRef });
+        })
+
+        return () => {
+            ctx.revert();
+        }
+    }, []);
 
 
     return (

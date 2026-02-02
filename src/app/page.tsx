@@ -15,7 +15,7 @@ export default function Home() {
   useEffect(() => {
     setTimeout(() => {
       setRenderkey(renderkey + 1);
-    }, 500);
+    }, 1500);
   },[])
 
   return (
