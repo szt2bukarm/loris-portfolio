@@ -4,7 +4,7 @@ import ContactForm from "./ContactForm";
 import { useStore } from "../../app/useStore";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import ContactHandsake from "./ContactHandsake";
 
@@ -33,7 +33,7 @@ export default function ContactWrapper() {
         };
     }, [openContact]);
 
-    const closeContact = () => {
+    const closeContact = useCallback(() => {
         gsap.to("[data-gsap='contact-form-wrapper']", {
             y: "100%",
             duration: 0.3,
@@ -48,7 +48,20 @@ export default function ContactWrapper() {
             overwrite: true,
             onComplete: () => setOpenContact(false)
         })
-    }
+    }, [setOpenContact])
+
+    useEffect(() => {
+        if (!openContact) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                closeContact();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [openContact, closeContact]);
 
     if (!openContact) return null;
 

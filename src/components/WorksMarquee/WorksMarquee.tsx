@@ -97,7 +97,7 @@ export default function WorksMarquee() {
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <div className="flex lg:hidden justify-between mb-[40px] md:mb-[50px] px-[10px] sm:px-[20px]">
-                    <p className="text-h4 md:text-h3 text-midgray font-intranet">WORKS</p>
+                    <p className="text-md md:text-h3 text-midgray font-intranet">WORKS</p>
                     <div className="text-md md:text-lg text-brightgray font-ppsemibold hover:opacity-50 duration-150 transition-opacity">Go to Works</div>
                 </div>
 

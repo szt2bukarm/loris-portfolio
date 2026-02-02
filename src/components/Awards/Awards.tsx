@@ -365,7 +365,7 @@ export default function Awards() {
 
     return (
         <section ref={containerRef} className="px-[10px] sm:px-[20px] pt-[90px] lg:px-[50px]  xl:py-[170px]">
-            <p className="text-h3 text-midgray font-intranet opacity-80 mb-[50px] leading-[130%]">awards and<br></br>recognitions</p>
+            <p className="text-md sm:text-h3 text-midgray font-intranet opacity-80 mb-[50px] leading-[130%]">awards and<br></br>recognitions</p>
 
             <div className="relative flex flex-col gap-[20px]" style={{ perspective: "1000px" }} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
                 {/* Rows */}

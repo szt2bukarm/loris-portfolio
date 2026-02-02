@@ -11,8 +11,8 @@ const data = [
     {
         title: "education",
         content: (
-            <p className="text-md text-brightgray lg:w-[260px]">
-                • BA in Graphic Design — Eszterházy Károly University, Hungary [2022–2025]
+            <p className="text-md text-brightgray">
+                • BA in Graphic Design<br></br> — Eszterházy Károly University,<br></br>Hungary [2022–2025]
             </p>
         ),
     },
@@ -32,14 +32,14 @@ const data = [
                 <p className="text-md text-brightgray lg:w-[300px] xl:w-[446px]">
                     • Associate Creative Director – WORLDS [2024–]
                 </p>
-                <p className="text-md text-brightgray lg:w-[300px] xl:w-[446px] opacity-75 ml-5">
+                <p className="text-md text-brightgray lg:w-[300px] xl:w-[446px] opacity-50 ml-5">
                     Visual Identity, Lead Graphic Designer, UI Designer, Concept Art Direction
                 </p>
 
                 <p className="text-md text-brightgray lg:w-[300px] xl:w-[446px]">
                     • Freelancing [2023–]
                 </p>
-                <p className="text-md text-brightgray lg:w-[300px] xl:w-[446px] opacity-75 ml-5">
+                <p className="text-md text-brightgray lg:w-[300px] xl:w-[446px] opacity-50 ml-5">
                     Various websites, branding and 3D rendering projects
                 </p>
             </>
@@ -133,7 +133,7 @@ const ExperienceMedium = () => {
 
                                 gsap.to(row.querySelectorAll(".experience-client-logo"), {
                                     yPercent: 0,
-                                    duration: 0.6,
+                                    duration: 1.2,
                                     stagger: window.innerWidth < 640 ? 0.1 : 0,
                                     delay: 0.3,
                                     ease: "out",
@@ -157,7 +157,7 @@ const ExperienceMedium = () => {
                     <div className="md:w-[50%]">
                         <p
                             data-gsap={`experience-title-${i}-medium`}
-                            className="font-intranet text-h3 text-midgray md:text-brightgray"
+                            className="font-intranet text-md sm:text-h3 text-midgray md:text-brightgray mb-[8px]"
                         >
                             {entry.title}
                         </p>
@@ -165,7 +165,7 @@ const ExperienceMedium = () => {
 
                     <div
                         data-gsap={`experience-content-${i}-medium`}
-                        className="md:w-[50%]"
+                        className="md:w-[50%] font-ppsemibold"
                     >
                         {entry.content}
                     </div>
@@ -289,7 +289,7 @@ const ExperienceLarge = () => {
                         >
                             <p
                                 data-gsap={`experience-title-${i}`}
-                                className="font-intranet text-h3 text-brightgray w-[500px] text-right"
+                                className="font-intranet sm:text-h3 text-brightgray w-[500px] text-right"
                             >
                                 {entry.title}
                             </p>

@@ -280,7 +280,7 @@ export default function Hero() {
             {/* text */}
             <div className="!z-[5] absolute bottom-3 md:bottom-10 lg:bottom-20 left-[10px] md:left-[20px] lg:left-[50px] flex flex-col gap-[20px] w-[calc(100%-20px)] lg:w-[500px] 2xl:w-[633px] ">
                 <p ref={subtitleRef} className="opacity-0 text-sm sm:text-lg text-midgray font-ppsemibold">Lorisbukvic.graphics</p>
-                <p ref={titleRef} className="opacity-0 text-[20px] md:text-h2 2xl:text-h1 font-intranet text-brightgray leading-[1.3]">Loris Bukvic is a cook turned multimedia designer focusing on web experiences, and stuff that looks good.</p>
+                <p ref={titleRef} className="opacity-0 [@media(max-width:380px)]:text-[20px] text-h3 md:text-h2 2xl:text-h1 font-intranet text-brightgray leading-[1.3]">Loris Bukvic is a cook turned multimedia designer focusing on web experiences, and stuff that looks good.</p>
             </div>
 
             <div ref={keychainRef} className="z-[10] relative w-full h-full translate-y-[-100px] xl:translate-y-[0px] overflow-hidden">
