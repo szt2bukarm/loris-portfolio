@@ -9,8 +9,8 @@ const data = [
     text: "He’s easy to work with and very attentive to<br>all the requests I had."
   },
   {
-    name: "AVIATION COMPANY",
-    image: null,
+    name: "AMCA",
+    image: "/assets/clients/amca.png",
     text: "Thanks so much Loris and team for your excellent work. We'll absolutely be working with you again. So impressed by your work, speed, and understanding of what we're looking for. Couldn't be happier."
   },
   {
