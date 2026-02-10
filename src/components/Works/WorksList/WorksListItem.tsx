@@ -32,12 +32,11 @@ export default function WorksListItem({ category, title, year, slug, onSelect, c
                 <div className="w-fit lg:w-[150px]">
                     <div data-hover-target="category" className={`${(windowWidth <= 1024 && windowWidth != 0) ? "!w-full" : "w-[32px]"} h-[32px] flex items-center gap-[5px] rounded-[99px] border-[1.5px] border-[#8b8b8b42] pl-[4px] pr-[4px] lg:pr-[6px] text-ppregular text-brightgray text-sm overflow-hidden transition-all duration-150`}>
                         <div className="min-w-[22px] min-h-[22px] flex items-center justify-center p-[1px] translate-x-[0.5px]">
-                        <img alt="category icon" src={category.icon} className={`w-full h-full object-contain  brightness-200 ${category.category === "UI/UX" ? "scale-[0.85] translate-x-[1.5px]" : "scale-100"} 
-
-                        ${category.category === "UI/UX" ? "scale-[0.88] translate-x-[-0.1px]"  : ""}
-                        ${category.category === "Graphics" ? "scale-90" : ""}
-                        ${category.category === "Product" ? "scale-90 translate-x-[-1px]" : ""}
-                        ${category.category === "Web" ? "translate-x-[-0.5px]" : ""}`} />
+                        <img alt="category icon" src={category.icon} className={`w-full h-full object-contain  brightness-200 
+                        ${category.category === "UI/UX" ? "scale-[0.7] translate-x-[0.5px]"  : ""}
+                        ${category.category === "Graphics" ? "scale-[0.8]" : ""}
+                        ${category.category === "Product" ? "scale-[0.8] translate-x-[-0.5px]" : ""}
+                        ${category.category === "Web" ? "translate-x-[-0.5px] scale-[0.9]" : ""}`} />
                         </div>
                         <p className="mr-[4px] leading-[100%] whitespace-nowrap">{category.category}</p>
                     </div>
