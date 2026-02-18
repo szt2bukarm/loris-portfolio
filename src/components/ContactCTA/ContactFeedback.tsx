@@ -63,7 +63,7 @@ export default function ContactFeedback() {
     <div
       data-gsap="contact-feedback"
       ref={containerRef}
-      className="flex flex-col gap-[10px] w-[500px] text-center opacity-0 mx-auto xl:translate-x-[-50px] 2xl:translate-x-0 mt-[50px] min-h-[120px] scale-[0.75] sm:scale-100"
+      className="flex flex-col gap-[10px] w-[500px] text-center opacity-0 mx-auto xl:translate-x-[-50px] 2xl:translate-x-0 mt-[50px] min-h-[150px] scale-[0.75] sm:scale-100"
     >
       {image === null && (
         <p className="text-h4 font-intranet text-brightgray leading-[100%]">
