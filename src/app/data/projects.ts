@@ -319,10 +319,6 @@ const projects = [
         description: "AUGHTS.SPECTIVE is a contemporary retrospective dedicated to the diverse cultural landscape of the early 2000s.<br><br>I curated and designed this 36-page periodical from cover to cover, creating a visual language that explores the intersection of Y2K technology and pop culture.",
         category: [
             {
-                icon: "/icons/uiux.svg",
-                category: "UI/UX"
-            },
-            {
                 icon: "/icons/graphics.svg",
                 category: "Graphics"
             }
